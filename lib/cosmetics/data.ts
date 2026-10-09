@@ -2,6 +2,28 @@ import { requireUserSession } from "@/lib/auth/session";
 import { cosmeticItemsSchema, inventorySchema } from "@/lib/cosmetics/schemas";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
+export function hasCosmeticsDataFailure({
+  profileResult,
+  catalogResult,
+  inventoryResult,
+  parsedCatalog,
+  parsedInventory,
+}: {
+  profileResult: { error: unknown };
+  catalogResult: { error: unknown };
+  inventoryResult: { error: unknown };
+  parsedCatalog: { success: boolean };
+  parsedInventory: { success: boolean };
+}) {
+  return Boolean(
+    profileResult.error ||
+      catalogResult.error ||
+      inventoryResult.error ||
+      !parsedCatalog.success ||
+      !parsedInventory.success,
+  );
+}
+
 export async function getCosmeticsData() {
   const user = await requireUserSession();
   const supabase = await createSupabaseServerClient();
@@ -20,10 +42,13 @@ export async function getCosmeticsData() {
 
   const parsedCatalog = cosmeticItemsSchema.safeParse(catalogResult.data ?? []);
   const parsedInventory = inventorySchema.safeParse(inventoryResult.data ?? []);
-  const failed = Boolean(
-    profileResult.error || catalogResult.error || inventoryResult.error ||
-    !profileResult.data || !parsedCatalog.success || !parsedInventory.success,
-  );
+  const failed = hasCosmeticsDataFailure({
+    profileResult,
+    catalogResult,
+    inventoryResult,
+    parsedCatalog,
+    parsedInventory,
+  });
 
   return {
     coins: profileResult.data?.coins ?? 0,
