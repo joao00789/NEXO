@@ -10,7 +10,6 @@ import {
   signInSchema,
   signUpSchema,
 } from "@/lib/auth/validation";
-import { getSupabaseAdminClient } from "@/lib/supabase/admin";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 const profileNameSchema = z
@@ -35,38 +34,27 @@ export async function signUpAction(_: unknown, formData: FormData): Promise<Auth
     return { error: parsed.error.issues[0]?.message ?? "Dados inválidos." };
   }
 
-  const supabase = await createSupabaseServerClient();
-  const { data, error } = await supabase.auth.signUp({
-    email: parsed.data.email,
-    password: parsed.data.password,
-    options: { data: { full_name: parsed.data.name } },
-  });
+  try {
+    const supabase = await createSupabaseServerClient();
+    const { data, error } = await supabase.auth.signUp({
+      email: parsed.data.email,
+      password: parsed.data.password,
+      options: { data: { full_name: parsed.data.name } },
+    });
 
-  if (error) {
-    return { error: error.message };
-  }
+    if (error) {
+      if (error.code === "user_already_exists") {
+        return { error: "Este e-mail já tem uma conta. Entre ou redefina sua senha." };
+      }
+      return { error: error.message || "Não foi possível criar sua conta." };
+    }
 
-  if (!data.user) {
-    return { error: "Não foi possível criar sua conta." };
-  }
-
-  const admin = getSupabaseAdminClient();
-  const { error: profileError } = await admin
-    .from("profiles")
-    .upsert(
-      {
-        id: data.user.id,
-        full_name: parsed.data.name,
-        display_name: parsed.data.name,
-        avatar_url: null,
-      },
-      { onConflict: "id" },
-    )
-    .select("id")
-    .single();
-
-  if (profileError) {
-    return { error: "Sua conta foi criada, mas não foi possível salvar seu perfil." };
+    if (!data.user) {
+      return { error: "Não foi possível criar sua conta. Tente novamente." };
+    }
+  } catch (error) {
+    console.error("Signup action failed.", error);
+    return { error: "Não foi possível criar sua conta agora. Tente novamente." };
   }
 
   redirect("/login?registered=1");
