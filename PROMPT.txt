@@ -1,0 +1,1280 @@
+# NEXO --- ESPECIFICAÇÃO MESTRE DO PROJETO
+
+Versão: 1.0 Status: base oficial para desenvolvimento Produto: NEXO
+Idioma principal: Português (Brasil) Objetivo: plataforma gratuita e
+gamificada de preparação para o ENEM, com IA para personalização do
+estudo.
+
+------------------------------------------------------------------------
+
+# 1. VISÃO DO PRODUTO
+
+O NEXO não deve ser tratado como um simples site de questões ou como um
+chatbot.
+
+O NEXO é uma plataforma de estudo integrada.
+
+Princípio central:
+
+> A plataforma identifica o que o estudante precisa aprender, ensina,
+> pratica, avalia e decide qual deve ser o próximo passo.
+
+Tudo relacionado ao estudo será gratuito.
+
+A única área de monetização será a personalização do avatar.
+
+Monetização: - skins - roupas - chapéus - acessórios - efeitos -
+molduras - fundos - itens cosméticos - pacotes cosméticos - NEXO Coins
+
+Não vender: - respostas - questões - conteúdo - correção de redação -
+mapas mentais - desempenho - plano de estudos - vantagem acadêmica
+
+------------------------------------------------------------------------
+
+# 2. IDENTIDADE
+
+Nome: NEXO
+
+Conceito: Conexão entre estudante, conhecimento e evolução.
+
+Posicionamento: Uma plataforma moderna, inteligente, gratuita e
+gamificada para preparação para o ENEM.
+
+Possíveis frases de marca: - Seu caminho até o ENEM. - Estude. Evolua.
+Conquiste. - Conecte-se ao seu próximo nível.
+
+A frase principal pode ser definida posteriormente.
+
+------------------------------------------------------------------------
+
+# 3. LOGO
+
+Manter a logo já aprovada.
+
+Símbolo: - livro aberto - seta apontando para evolução - capelo de
+formatura
+
+A logo deve transmitir: - educação - evolução - conquista - tecnologia
+
+Criar versões: - logo completa - símbolo isolado - versão horizontal -
+versão para favicon - versão monocromática clara - versão monocromática
+escura
+
+Os arquivos devem ficar em:
+
+/public/brand/
+
+------------------------------------------------------------------------
+
+# 4. DIREÇÃO VISUAL
+
+Estilo: Minimalista + tecnológico + gamificado.
+
+O site NÃO deve parecer: - infantil - exageradamente gamer - cheio de
+neon - cheio de gradientes - cheio de glassmorphism - poluído
+
+Deve parecer: - premium - moderno - limpo - rápido - confiável -
+tecnológico - agradável para estudar por muito tempo
+
+Tema principal: Dark mode.
+
+Paleta base:
+
+Background: #0A0A0B
+
+Surface: #111214
+
+Card: #17181B
+
+Border: #282A2E
+
+Texto principal: #F5F5F5
+
+Texto secundário: #9A9CA3
+
+Azul de destaque: usar azul elétrico inspirado na logo.
+
+Regra: Azul é cor de ação/destaque. Não pintar a interface inteira de
+azul.
+
+------------------------------------------------------------------------
+
+# 5. TIPOGRAFIA
+
+Fonte principal: Inter
+
+Fonte alternativa: Manrope
+
+Pesos: - 400: texto normal - 500: texto secundário/labels - 600: títulos
+menores - 700: títulos principais e números importantes
+
+Evitar fontes decorativas.
+
+------------------------------------------------------------------------
+
+# 6. ÍCONES
+
+Usar SVG.
+
+Biblioteca principal sugerida: Lucide React para ícones funcionais.
+
+Ícones específicos da marca podem ser SVG próprios.
+
+Criar:
+
+/public/icons/ navigation/ subjects/ actions/ gamification/ avatar/
+status/ achievements/
+
+Preferir: - SVG - viewBox consistente - currentColor - tamanhos
+padronizados - acessibilidade
+
+Não colocar SVG gigante diretamente em componentes.
+
+------------------------------------------------------------------------
+
+# 7. ANIMAÇÕES
+
+Biblioteca: Framer Motion.
+
+Princípio: A animação deve ajudar a entender a interface.
+
+Durações: - microinterações: 120--180 ms - transições: 180--250 ms -
+animações especiais: 300--700 ms
+
+Usar: - fade - pequeno translate - scale mínimo - progress bar -
+skeleton - expansão de cards - transição de páginas - feedback de
+acerto - ganho de XP - level up - conclusão de missão - abertura de
+loja - equipar item - expansão de mapa mental
+
+Evitar: - animação constante - elementos pulando sem motivo - excesso de
+partículas - transições lentas
+
+Implementar suporte a: prefers-reduced-motion
+
+------------------------------------------------------------------------
+
+# 8. TECNOLOGIA
+
+## Frontend
+
+Next.js com App Router TypeScript Tailwind CSS shadcn/ui Framer Motion
+Lucide React React Hook Form Zod Zustand quando estado global realmente
+for necessário Recharts para gráficos @xyflow/react para mapas mentais
+
+## Backend
+
+Usar inicialmente o próprio Next.js para: - Route Handlers - Server
+Actions quando apropriado - lógica de servidor - integração com IA -
+validações - operações protegidas
+
+Não criar um backend separado no começo sem necessidade.
+
+## Banco e infraestrutura
+
+Supabase: - PostgreSQL - Auth - Storage - Realtime quando necessário -
+Edge Functions quando fizer sentido
+
+Supabase será o backend principal.
+
+## Deploy
+
+Frontend: Vercel ou plataforma equivalente compatível com Next.js.
+
+Banco/Auth/Storage: Supabase.
+
+------------------------------------------------------------------------
+
+# 9. SUPABASE
+
+Usar: - Supabase Auth - Supabase PostgreSQL - Supabase Storage - Row
+Level Security (RLS)
+
+Autenticação: - email/senha - recuperação de senha - eventualmente
+Google OAuth
+
+Perfil do estudante separado do auth.users.
+
+Criar RLS desde o início.
+
+Regra: Um estudante só pode acessar seus próprios dados, salvo dados
+públicos/compartilhados explicitamente.
+
+------------------------------------------------------------------------
+
+# 10. ESTRUTURA DE ROTAS
+
+Públicas:
+
+/ /sobre /como-funciona /login /cadastro /recuperar-senha
+
+Área autenticada:
+
+/app /app/questoes /app/questoes/\[id\] /app/conteudos
+/app/conteudos/\[id\] /app/redacao /app/redacao/\[id\] /app/mapas
+/app/mapas/\[id\] /app/simulados /app/simulados/\[id\] /app/desempenho
+/app/missoes /app/avatar /app/loja /app/configuracoes
+
+Admin:
+
+/admin /admin/usuarios /admin/questoes /admin/conteudos /admin/redacoes
+/admin/temas /admin/loja /admin/itens /admin/missoes /admin/analytics
+/admin/ai /admin/moderacao
+
+------------------------------------------------------------------------
+
+# 11. DASHBOARD
+
+A Home deve mostrar:
+
+-   saudação
+-   avatar
+-   nível
+-   XP
+-   NEXO Coins
+-   sequência
+-   progresso geral
+-   nota estimada
+-   áreas do ENEM
+-   desempenho por matéria
+-   estudo recomendado
+-   continuar de onde parou
+-   questão do dia
+-   redação do dia
+-   mapa mental
+-   missão atual
+-   metas
+
+Exemplo de recomendação:
+
+> Seu próximo estudo
+>
+> Probabilidade Você acertou 43% das questões recentes.
+>
+> \[Começar treino\]
+
+------------------------------------------------------------------------
+
+# 12. DIAGNÓSTICO INICIAL
+
+No primeiro acesso, o estudante pode fazer um diagnóstico.
+
+O diagnóstico deve avaliar: - Matemática - Linguagens - Ciências
+Humanas - Ciências da Natureza
+
+Também pode incluir redação posteriormente.
+
+Resultado:
+
+-   nível geral
+-   nível por área
+-   temas fortes
+-   temas fracos
+-   recomendações
+-   plano inicial
+
+O diagnóstico não deve ser apresentado como uma nota oficial do ENEM.
+
+------------------------------------------------------------------------
+
+# 13. QUESTÕES
+
+Fluxo:
+
+1.  escolher área
+2.  escolher matéria
+3.  escolher tema
+4.  escolher dificuldade
+5.  escolher quantidade
+6.  iniciar treino
+
+Dificuldades: - fácil - médio - difícil - estilo ENEM
+
+Tipos: - múltipla escolha - eventualmente verdadeiro/falso em exercícios
+internos - questões contextualizadas
+
+Cada questão deve armazenar:
+
+-   id
+-   matéria
+-   área
+-   tema
+-   subtema
+-   dificuldade
+-   enunciado
+-   alternativas
+-   resposta correta
+-   explicação
+-   habilidade
+-   tags
+-   fonte
+-   origem
+-   data de criação
+-   status de revisão
+
+Origem: - oficial - licenciada - adaptada - gerada por IA - criada
+manualmente
+
+Nunca apresentar uma questão gerada pela IA como questão oficial.
+
+------------------------------------------------------------------------
+
+# 14. MOTOR DE DESEMPENHO
+
+Cada tentativa deve registrar:
+
+-   usuário
+-   questão
+-   resposta
+-   correta/incorreta
+-   tempo
+-   tema
+-   dificuldade
+-   data
+
+O sistema calcula: - taxa de acerto - tempo médio - evolução - assuntos
+fracos - assuntos fortes - erros recorrentes
+
+------------------------------------------------------------------------
+
+# 15. REVISÃO INTELIGENTE
+
+Implementar revisão baseada em desempenho.
+
+Exemplo:
+
+Erro em Probabilidade: - revisar hoje - nova questão amanhã - nova
+questão em 3 dias - nova questão em 7 dias - nova questão em 14 dias
+
+Se o estudante continuar errando: a frequência aumenta.
+
+Se dominar: a frequência diminui.
+
+O algoritmo pode começar simples e ser melhorado depois.
+
+------------------------------------------------------------------------
+
+# 16. CONTEÚDO DE ESTUDO
+
+Cada conteúdo pode conter:
+
+-   resumo
+-   explicação
+-   conceitos-chave
+-   exemplos
+-   fórmulas
+-   erros comuns
+-   exercícios
+-   questões relacionadas
+-   mapa mental
+-   resumo automático
+
+Botões: - Gerar resumo - Criar mapa mental - Praticar esse tema - Marcar
+como estudado
+
+------------------------------------------------------------------------
+
+# 17. REDAÇÃO
+
+Área completa de redação.
+
+Funções: - gerar tema - selecionar tema - apresentar textos
+motivadores - editor de texto - contador de palavras - salvar rascunho -
+enviar para correção - histórico
+
+Temas: - atuais - sociais - ambientais - tecnológicos - culturais -
+educacionais - econômicos - relacionados à cidadania
+
+IMPORTANTE: Tema de atualidade deve passar por uma camada de verificação
+de fatos/fontes antes de ser apresentado como baseado em acontecimento
+atual.
+
+------------------------------------------------------------------------
+
+# 18. CORREÇÃO DE REDAÇÃO
+
+Avaliar as 5 competências do ENEM.
+
+Mostrar:
+
+Nota estimada: 0--1000
+
+Competência I Competência II Competência III Competência IV Competência
+V
+
+Também mostrar: - pontos fortes - pontos fracos - problemas
+gramaticais - argumentação - coesão - repertório - proposta de
+intervenção - sugestões de melhoria
+
+A nota é uma estimativa educacional e nunca deve ser apresentada como
+nota oficial.
+
+------------------------------------------------------------------------
+
+# 19. MAPAS MENTAIS
+
+Usar @xyflow/react ou tecnologia equivalente.
+
+Fluxo: - selecionar matéria - selecionar tema - selecionar
+profundidade - gerar
+
+Mapa: - conceito central - ramos - subramos - palavras-chave - relações
+
+Funções: - arrastar - zoom - expandir - recolher - editar - salvar -
+duplicar - exportar - gerar questões do mapa
+
+------------------------------------------------------------------------
+
+# 20. SIMULADOS
+
+Tipos:
+
+-   simulado rápido
+-   por área
+-   por matéria
+-   completo
+
+Funções: - cronômetro - navegação - marcar questão - finalizar -
+correção - desempenho - comparação
+
+Nunca prometer que a nota calculada é uma nota oficial do ENEM.
+
+------------------------------------------------------------------------
+
+# 21. GAMIFICAÇÃO
+
+O aluno possui:
+
+-   XP
+-   nível
+-   sequência
+-   missões
+-   conquistas
+-   NEXO Coins
+-   avatar
+
+XP pode ser obtido por: - responder questões - acertar questões -
+completar estudo - concluir missão - terminar simulado - escrever
+redação - criar mapa mental - manter sequência
+
+Não dar XP de forma abusiva por ações que possam ser automatizadas
+facilmente.
+
+Criar limites anti-farm.
+
+------------------------------------------------------------------------
+
+# 22. AVATAR
+
+O avatar representa o estudante.
+
+Personalizações:
+
+Rosto: - formatos - expressões
+
+Cabelo: - estilos - cores
+
+Roupas: - camisetas - moletons - jaquetas - roupas temáticas
+
+Chapéus: - boné - bucket - touca - capelo - chapéu temático - coroa
+
+Acessórios: - óculos - fone - mochila - relógio - acessórios diversos
+
+Efeitos: - aura - partículas - entrada - level up
+
+Perfil: - fundo - moldura - banner
+
+------------------------------------------------------------------------
+
+# 23. LOJA
+
+A única monetização do NEXO.
+
+Categorias: - roupas - chapéus - acessórios - efeitos - molduras -
+fundos - coleções
+
+Itens podem ser:
+
+1.  comprados com NEXO Coins
+2.  desbloqueados por conquistas
+3.  obtidos em eventos
+
+Não vender vantagem acadêmica.
+
+------------------------------------------------------------------------
+
+# 24. NEXO COINS
+
+Moeda virtual.
+
+Ganhos possíveis:
+
+Questão respondida: +2
+
+Questão acertada: +3
+
+Missão: +20
+
+Meta diária: +30
+
+Simulado: +50
+
+Sequência: bônus
+
+Conquistas: bônus
+
+Compra de Coins: permitida futuramente.
+
+Implementar proteção contra duplicação/fraude.
+
+O saldo nunca deve ser alterado diretamente pelo frontend.
+
+Toda alteração deve passar pelo servidor e gerar registro de transação.
+
+------------------------------------------------------------------------
+
+# 25. LOJA E PAGAMENTOS
+
+O pagamento real deve ser separado da moeda virtual.
+
+Arquitetura:
+
+Cliente → servidor → provedor de pagamento → webhook → servidor →
+registro de compra → entrega das Coins/item
+
+Nunca confiar no frontend para confirmar pagamento.
+
+O provedor de pagamento pode ser escolhido posteriormente.
+
+Para o Brasil, avaliar provedores como Mercado Pago ou Stripe.
+
+Não implementar pagamentos antes de o sistema de inventário estar
+estável.
+
+------------------------------------------------------------------------
+
+# 26. EVENTOS
+
+Criar suporte futuro para eventos:
+
+-   Halloween
+-   Natal
+-   volta às aulas
+-   Semana do ENEM
+-   aniversário do NEXO
+
+Eventos podem oferecer: - missões - itens exclusivos - moedas -
+conquistas
+
+------------------------------------------------------------------------
+
+# 27. MISSÕES
+
+Exemplos:
+
+Diárias: - responder 10 questões - estudar 20 minutos - fazer 5 questões
+de matemática
+
+Semanais: - responder 100 questões - completar 3 matérias - escrever uma
+redação
+
+Especiais: - 1000 questões - 30 dias de sequência - primeiro simulado
+completo
+
+------------------------------------------------------------------------
+
+# 28. CONQUISTAS
+
+Exemplos:
+
+Primeira Questão 100 Questões 500 Questões 1000 Questões Primeira
+Redação 10 Redações Primeiro Simulado 7 Dias 30 Dias Mestre da
+Matemática Mestre da Natureza
+
+Cada conquista pode liberar: - XP - Coins - item cosmético - título
+
+------------------------------------------------------------------------
+
+# 29. IA --- ARQUITETURA
+
+Criar um AI Gateway.
+
+Nunca chamar o provedor diretamente de vários componentes.
+
+Estrutura:
+
+/lib/ai/ gateway.ts providers/ gemini.ts groq.ts openrouter.ts prompts/
+schemas/ validators/
+
+Interface conceitual:
+
+generateQuestion() explainAnswer() generateStudyContent()
+generateMindMap() generateEssayTopic() gradeEssay() recommendNextStudy()
+generateSimulation()
+
+O frontend chama o backend.
+
+O backend chama o AI Gateway.
+
+O AI Gateway escolhe o provedor.
+
+------------------------------------------------------------------------
+
+# 30. IA SEM API CARA
+
+O projeto deve começar usando provedores com opções gratuitas quando
+disponíveis.
+
+Nunca depender de um único provedor.
+
+Criar:
+
+AI_PROVIDER=gemini
+
+e fallback:
+
+AI_FALLBACK_PROVIDER=groq
+
+Outro fallback possível: OpenRouter.
+
+Os limites gratuitos dos provedores podem mudar, então o sistema deve
+permitir troca de provedor sem alterar o frontend.
+
+Criar controle de: - uso - erros - tempo - custo - limite - modelo
+utilizado
+
+------------------------------------------------------------------------
+
+# 31. VALIDAÇÃO DA IA
+
+A IA não pode enviar qualquer resposta diretamente para o usuário em
+funcionalidades críticas.
+
+Para questões:
+
+IA → JSON estruturado → Zod → validação → regras de conteúdo → salvar →
+disponibilizar
+
+Para redação: IA → estrutura de correção → validação →
+cálculo/normalização → resultado
+
+Para mapa mental: IA → JSON de nós → validação → renderização
+
+------------------------------------------------------------------------
+
+# 32. SEGURANÇA DA IA
+
+Proteger contra: - prompt injection - conteúdo malicioso - respostas
+gigantes - loops - abuso de geração - spam - tentativas de consumir a
+API
+
+Implementar: - rate limit - limites de tamanho - timeout - logs -
+validação - cache quando possível
+
+Nunca colocar API key no frontend.
+
+------------------------------------------------------------------------
+
+# 33. ADMIN
+
+Criar painel administrativo.
+
+Funções:
+
+Usuários: - listar - pesquisar - visualizar métricas - suspender
+
+Questões: - revisar - editar - aprovar - arquivar - marcar como
+problemática
+
+Conteúdo: - revisar - editar - publicar
+
+Redação: - visualizar estatísticas - revisar problemas
+
+IA: - uso - erros - latência - provedor - modelo
+
+Loja: - criar item - preço - estoque lógico - disponibilidade - evento
+
+Missões: - criar - ativar - desativar
+
+Analytics: - usuários ativos - sessões - questões - retenção - uso de
+IA - itens mais usados
+
+------------------------------------------------------------------------
+
+# 34. BANCO DE DADOS
+
+Tabelas principais:
+
+profiles subjects topics subtopics questions question_options
+question_attempts study_contents study_sessions study_progress
+review_items essays essay_drafts essay_corrections mind_maps
+mind_map_nodes simulations simulation_attempts simulation_answers
+missions mission_progress achievements user_achievements avatars
+avatar_items avatar_inventory avatar_equipped shop_categories shop_items
+coin_transactions purchases payment_events ai_generations ai_usage
+notifications admin_logs reports
+
+------------------------------------------------------------------------
+
+# 35. REGRAS DE BANCO
+
+Usar UUIDs.
+
+Criar: - primary keys - foreign keys - indexes - timestamps -
+constraints
+
+Ativar RLS.
+
+Toda tabela que possuir dados de usuário deve ter política adequada.
+
+Nunca confiar somente na interface para segurança.
+
+------------------------------------------------------------------------
+
+# 36. STORAGE
+
+Usar Supabase Storage para: - avatar assets - imagens - arquivos de
+usuário quando necessários - materiais autorizados
+
+Não armazenar arquivos grandes dentro do PostgreSQL.
+
+Criar buckets separados conforme necessidade e políticas de acesso.
+
+------------------------------------------------------------------------
+
+# 37. ESTRUTURA DE PASTAS
+
+nexo/ │ ├── app/ │ ├── (marketing)/ │ ├── (auth)/ │ ├── app/ │ │ ├──
+page.tsx │ │ ├── questoes/ │ │ ├── conteudos/ │ │ ├── redacao/ │ │ ├──
+mapas/ │ │ ├── simulados/ │ │ ├── desempenho/ │ │ ├── missoes/ │ │ ├──
+avatar/ │ │ ├── loja/ │ │ └── configuracoes/ │ │ │ ├── admin/ │ └── api/
+│ ├── ai/ │ ├── questions/ │ ├── essays/ │ ├── mindmaps/ │ ├──
+simulations/ │ └── shop/ │ ├── components/ │ ├── ui/ │ ├── layout/ │ ├──
+dashboard/ │ ├── questions/ │ ├── content/ │ ├── essay/ │ ├── mindmap/ │
+├── simulations/ │ ├── gamification/ │ ├── avatar/ │ └── shop/ │ ├──
+lib/ │ ├── supabase/ │ ├── ai/ │ ├── auth/ │ ├── db/ │ ├── scoring/ │
+├── gamification/ │ ├── recommendations/ │ ├── validation/ │ └──
+security/ │ ├── public/ │ ├── brand/ │ ├── icons/ │ ├── avatar/ │ └──
+images/ │ ├── supabase/ │ ├── migrations/ │ ├── seed.sql │ └──
+config.toml │ ├── tests/ │ ├── unit/ │ ├── integration/ │ └── e2e/ │ ├──
+docs/ │ ├── .env.example ├── AGENTS.md ├── README.md ├── package.json
+└── tsconfig.json
+
+------------------------------------------------------------------------
+
+# 38. COMO O CODEX DEVE PROGRAMAR
+
+O Codex deve trabalhar como agente de engenharia, não como gerador de
+arquivos aleatórios.
+
+A extensão do Codex pode trabalhar dentro do VS Code, lendo, editando e
+executando o código do workspace.
+
+O projeto deve ter um arquivo:
+
+AGENTS.md
+
+Esse arquivo conterá as regras permanentes do NEXO.
+
+------------------------------------------------------------------------
+
+# 39. AGENTS.MD --- REGRAS PRINCIPAIS
+
+O AGENTS.md deve instruir o Codex:
+
+1.  Leia a arquitetura antes de alterar código.
+2.  Não reescreva componentes existentes sem necessidade.
+3.  Não crie dependências desnecessárias.
+4.  Use TypeScript estrito.
+5.  Use componentes reutilizáveis.
+6.  Não colocar segredo/API key no frontend.
+7.  Toda operação sensível deve passar pelo servidor.
+8.  Respeitar RLS do Supabase.
+9.  Validar entradas com Zod.
+10. Criar testes para lógica importante.
+11. Rodar lint após mudanças.
+12. Rodar testes relevantes.
+13. Não quebrar funcionalidades existentes.
+14. Não inventar tabelas do banco.
+15. Alterações de banco devem ser migrations.
+16. Não modificar design system sem motivo.
+17. Usar os tokens de design existentes.
+18. Preferir SVG.
+19. Respeitar acessibilidade.
+20. Respeitar prefers-reduced-motion.
+21. Não usar cores fora do design system sem justificativa.
+22. Não colocar monetização fora da loja de avatar.
+23. Não vender conteúdo educacional.
+24. Não chamar APIs de IA diretamente pelo browser.
+25. Não apresentar conteúdo gerado como oficial.
+26. Antes de terminar uma tarefa, verificar build/lint/testes.
+
+------------------------------------------------------------------------
+
+# 40. COMO DAR TAREFAS AO CODEX
+
+Não pedir:
+
+"Faça o NEXO inteiro."
+
+Pedir tarefas pequenas e verificáveis.
+
+Exemplo:
+
+"Implemente somente o layout base autenticado do NEXO. Crie sidebar
+responsiva, header e área de conteúdo. Não implemente banco, IA ou
+funcionalidades ainda. Use os tokens de design definidos no AGENTS.md.
+Depois rode lint e build."
+
+Depois:
+
+"Implemente autenticação Supabase. Não altere o layout."
+
+Depois:
+
+"Crie a migration das tabelas profiles, subjects e topics."
+
+Depois:
+
+"Implemente a tela de questões usando dados mockados."
+
+Depois:
+
+"Conecte a tela de questões ao Supabase."
+
+Depois:
+
+"Crie o AI Gateway."
+
+E assim por diante.
+
+------------------------------------------------------------------------
+
+# 41. ORDEM DE DESENVOLVIMENTO
+
+FASE 0 --- Fundação
+
+-   Git
+-   Next.js
+-   TypeScript
+-   Tailwind
+-   shadcn/ui
+-   ESLint
+-   Prettier
+-   Supabase
+-   AGENTS.md
+-   README
+-   variáveis de ambiente
+-   estrutura de pastas
+
+FASE 1 --- Design System
+
+-   cores
+-   tipografia
+-   espaçamento
+-   cards
+-   botões
+-   inputs
+-   modais
+-   badges
+-   progress bars
+-   skeleton
+-   toast
+-   sidebar
+-   header
+
+FASE 2 --- Autenticação
+
+-   cadastro
+-   login
+-   logout
+-   recuperação
+-   perfil
+
+FASE 3 --- Dashboard
+
+-   layout
+-   progresso
+-   matérias
+-   metas
+-   sequência
+-   XP
+-   avatar
+
+FASE 4 --- Banco
+
+-   migrations
+-   RLS
+-   seeds
+-   relacionamentos
+
+FASE 5 --- Questões
+
+-   banco de questões
+-   seleção
+-   resolução
+-   correção
+-   histórico
+-   desempenho
+
+FASE 6 --- IA
+
+-   AI Gateway
+-   provider adapter
+-   geração
+-   validação
+-   logs
+-   limites
+
+FASE 7 --- Conteúdo
+
+-   conteúdos
+-   resumos
+-   recomendações
+
+FASE 8 --- Redação
+
+-   temas
+-   editor
+-   correção
+-   histórico
+
+FASE 9 --- Mapas
+
+-   geração
+-   visualização
+-   edição
+-   salvamento
+
+FASE 10 --- Simulados
+
+-   montagem
+-   cronômetro
+-   correção
+-   desempenho
+
+FASE 11 --- Gamificação
+
+-   XP
+-   níveis
+-   missões
+-   conquistas
+-   sequência
+-   Coins
+
+FASE 12 --- Avatar
+
+-   criação
+-   personalização
+-   inventário
+-   equipamentos
+
+FASE 13 --- Loja
+
+-   catálogo
+-   compra com Coins
+-   inventário
+-   itens desbloqueados
+
+FASE 14 --- Monetização
+
+-   compra de Coins
+-   provedor de pagamento
+-   webhook
+-   confirmação
+-   antifraude básico
+
+FASE 15 --- Admin
+
+-   usuários
+-   conteúdo
+-   questões
+-   IA
+-   loja
+-   analytics
+
+FASE 16 --- Qualidade
+
+-   testes
+-   acessibilidade
+-   performance
+-   segurança
+-   mobile
+-   SEO
+-   observabilidade
+
+------------------------------------------------------------------------
+
+# 42. TESTES
+
+Unitários: - scoring - XP - Coins - recomendações - validações
+
+Integração: - Supabase - autenticação - criação de questão - tentativa -
+redação - inventário
+
+E2E: - cadastro - login - responder questão - concluir missão - criar
+redação - criar mapa - equipar item - comprar item
+
+Antes de cada release: - lint - typecheck - testes - build
+
+------------------------------------------------------------------------
+
+# 43. RESPONSIVIDADE
+
+Prioridade: mobile first.
+
+O sistema precisa funcionar bem em: - celular - tablet - notebook -
+desktop
+
+No celular: - sidebar vira menu - cards reorganizam - mapas têm
+controles touch - editor de redação funciona corretamente - avatar e
+loja continuam fáceis de usar
+
+------------------------------------------------------------------------
+
+# 44. ACESSIBILIDADE
+
+Implementar: - teclado - foco visível - labels - aria quando
+necessário - contraste - navegação sem mouse - reduced motion - textos
+alternativos
+
+Nunca usar cor como único indicador.
+
+Exemplo: não mostrar apenas vermelho para "erro". Usar também ícone e
+texto.
+
+------------------------------------------------------------------------
+
+# 45. PERFORMANCE
+
+Priorizar: - Server Components quando apropriado - carregamento sob
+demanda - imagens otimizadas - SVG leve - lazy loading - cache - queries
+específicas - paginação - evitar renders desnecessários
+
+Não buscar todos os dados do usuário na Home.
+
+------------------------------------------------------------------------
+
+# 46. SEGURANÇA
+
+Obrigatório: - secrets somente no servidor - RLS - validação de
+entrada - rate limit - proteção de rotas - controle de permissões -
+logs - proteção de webhook - sanitização de conteúdo - limites de upload
+
+Criar roles: - student - admin
+
+No futuro: - moderator - content_editor
+
+------------------------------------------------------------------------
+
+# 47. LGPD
+
+Como o produto será voltado para estudantes brasileiros, o projeto deve
+ser pensado desde o começo para privacidade.
+
+Implementar: - política de privacidade - termos - controle de conta -
+exclusão de conta - minimização de dados - proteção de dados - controle
+de consentimento quando necessário
+
+Se houver usuários menores de idade, avaliar os fluxos de consentimento
+e responsabilidades aplicáveis antes do lançamento comercial.
+
+------------------------------------------------------------------------
+
+# 48. ANALYTICS
+
+Métricas do produto:
+
+-   usuários cadastrados
+-   usuários ativos
+-   sessões
+-   questões respondidas
+-   taxa de acerto
+-   redações
+-   mapas
+-   simulados
+-   sequência média
+-   retenção
+-   uso da IA
+-   erros da IA
+-   itens de avatar mais equipados
+-   conversão da loja
+
+Não coletar dados desnecessários.
+
+------------------------------------------------------------------------
+
+# 49. EXPERIÊNCIA DO ESTUDANTE
+
+O NEXO deve sempre responder:
+
+1.  O que devo estudar?
+2.  Por que preciso estudar isso?
+3.  O que devo fazer agora?
+
+Exemplo:
+
+"Você está com dificuldade em Probabilidade."
+
+"Por isso, o NEXO recomenda revisar este conteúdo."
+
+"Depois faça estas 5 questões."
+
+"Se atingir 80%, avance para o próximo nível."
+
+------------------------------------------------------------------------
+
+# 50. ESTILO DOS TEXTOS DA INTERFACE
+
+Tom: - amigável - motivador - direto - jovem - profissional
+
+Evitar: - infantilização - excesso de emojis - linguagem forçada -
+frases genéricas
+
+Exemplo:
+
+Ruim: "Uau!!! Você é incrível!!! Continue assim!!! 🔥🔥🔥"
+
+Bom: "Boa evolução. Você melhorou 12% em Matemática esta semana."
+
+------------------------------------------------------------------------
+
+# 51. O QUE NÃO FAZER
+
+Não criar: - assinatura obrigatória - conteúdo bloqueado por pagamento -
+energia limitada para estudar - vidas para questões - loot box -
+cassino - roleta de pagamento - vantagem acadêmica paga - anúncio
+durante redação - anúncio no meio da questão
+
+Não transformar educação em pay-to-win.
+
+------------------------------------------------------------------------
+
+# 52. MVP
+
+A primeira versão pública NÃO precisa ter tudo.
+
+MVP:
+
+1.  Cadastro/login
+2.  Dashboard
+3.  Matérias
+4.  Questões
+5.  Correção
+6.  Desempenho
+7.  Conteúdo
+8.  Redação
+9.  Correção de redação
+10. Mapa mental
+11. XP
+12. Missões
+13. Avatar básico
+
+Depois: - simulados completos - loja - Coins - eventos - pagamentos -
+admin avançado
+
+------------------------------------------------------------------------
+
+# 53. DEFINIÇÃO DE PRONTO
+
+Uma funcionalidade só está pronta quando:
+
+-   funciona
+-   está integrada
+-   tem estados de loading
+-   tem estado vazio
+-   tem tratamento de erro
+-   é responsiva
+-   é acessível
+-   possui validação
+-   não expõe secrets
+-   possui testes quando aplicável
+-   passa lint
+-   passa typecheck
+-   não quebra outras telas
+
+------------------------------------------------------------------------
+
+# 54. PRINCÍPIO FINAL
+
+O NEXO deve ser construído como um produto real.
+
+A IA não é o produto.
+
+A IA é uma camada do produto.
+
+O produto é:
+
+ESTUDANTE ↓ DIAGNÓSTICO ↓ PLANO ↓ CONTEÚDO ↓ QUESTÕES ↓ ERROS ↓ REVISÃO
+↓ REAVALIAÇÃO ↓ EVOLUÇÃO ↓ GAMIFICAÇÃO ↓ RETORNO AO ESTUDO
+
+A plataforma deve aprender com o comportamento do estudante e melhorar a
+recomendação ao longo do tempo.
+
+------------------------------------------------------------------------
+
+# 55. PRIMEIRA TAREFA DO CODEX
+
+O primeiro prompt recomendado para o Codex:
+
+"Leia o arquivo de especificação do NEXO e o AGENTS.md. Não implemente
+funcionalidades ainda.
+
+Primeiro: 1. inicialize o projeto Next.js com TypeScript e App Router;
+2. configure Tailwind CSS e shadcn/ui; 3. configure ESLint e formatação;
+4. crie a estrutura de pastas definida; 5. crie o design system inicial
+com os tokens do NEXO; 6. configure o Supabase sem criar lógica de
+negócio; 7. crie o layout base responsivo; 8. crie componentes UI
+reutilizáveis; 9. crie README.md explicando como executar o projeto; 10.
+crie .env.example sem nenhuma chave real; 11. rode lint, typecheck e
+build.
+
+Não implemente IA, pagamentos, loja ou banco de negócio nesta etapa.
+
+Ao terminar, mostre um resumo dos arquivos criados, problemas
+encontrados e comandos executados."
+
+------------------------------------------------------------------------
+
+# 56. SEGUNDA TAREFA
+
+Depois que a fundação estiver funcionando:
+
+"Agora implemente a autenticação do NEXO usando Supabase Auth.
+
+Crie: - login - cadastro - logout - recuperação de senha - proteção das
+rotas /app - perfil básico
+
+Use as práticas atuais do Supabase para Next.js.
+
+Não implemente IA, questões ou loja ainda.
+
+Crie migrations necessárias, RLS e testes. Rode lint, typecheck e
+build."
+
+------------------------------------------------------------------------
+
+# 57. REGRA DE OURO PARA O CODEX
+
+O Codex deve sempre:
+
+PLANEJAR → IMPLEMENTAR → TESTAR → REVISAR → CORRIGIR → ENTREGAR
+
+Nunca:
+
+PROMPT GRANDE → 500 ARQUIVOS → "PRONTO"
+
+O projeto deve crescer por incrementos pequenos e verificáveis.
+
+------------------------------------------------------------------------
+
+# 58. RESUMO DA ARQUITETURA
+
+NEXO │ ├── Next.js + TypeScript │ ├── Tailwind + shadcn/ui │ ├── Framer
+Motion │ ├── Supabase │ ├── Auth │ ├── PostgreSQL │ ├── Storage │ └──
+Realtime quando necessário │ ├── AI Gateway │ ├── Gemini │ ├── Groq │
+└── OpenRouter │ ├── Gamificação │ ├── XP │ ├── níveis │ ├── missões │
+├── conquistas │ └── Coins │ ├── Avatar │ ├── roupas │ ├── chapéus │ ├──
+acessórios │ └── efeitos │ ├── Loja │ └── única área de monetização │
+└── Admin ├── conteúdo ├── usuários ├── IA ├── loja └── métricas
+
+FIM DA ESPECIFICAÇÃO

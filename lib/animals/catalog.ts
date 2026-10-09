@@ -1,0 +1,28 @@
+export const ANIMAL_CATALOG = [
+  { id: "beaver", name: "Castor", description: "Constrói com persistência." },
+  { id: "bee", name: "Abelha", description: "Atenta e trabalhadora." },
+  { id: "bunny", name: "Coelho", description: "Ágil e curioso." },
+  { id: "cat", name: "Gato", description: "Observador e independente." },
+  { id: "caterpillar", name: "Lagarta", description: "Sempre em evolução." },
+  { id: "chick", name: "Pintinho", description: "Pequeno começo, grande jornada." },
+  { id: "cow", name: "Vaca", description: "Calma e constante." },
+  { id: "crab", name: "Caranguejo", description: "Firme em qualquer desafio." },
+  { id: "deer", name: "Cervo", description: "Leve e atento." },
+  { id: "dog", name: "Cachorro", description: "Leal e companheiro." },
+  { id: "elephant", name: "Elefante", description: "Memória e determinação." },
+  { id: "fish", name: "Peixe", description: "Flui entre os desafios." },
+  { id: "fox", name: "Raposa", description: "Ágil e estratégica." },
+  { id: "giraffe", name: "Girafa", description: "Enxerga longe e segue em frente." },
+  { id: "hog", name: "Javali", description: "Corajoso e persistente." },
+  { id: "koala", name: "Coala", description: "Tranquilo e focado." },
+  { id: "lion", name: "Leão", description: "Confiante e determinado." },
+  { id: "monkey", name: "Macaco", description: "Criativo e esperto." },
+  { id: "panda", name: "Panda", description: "Equilíbrio e concentração." },
+  { id: "parrot", name: "Papagaio", description: "Comunicativo e expressivo." },
+  { id: "penguin", name: "Pinguim", description: "Resistente e colaborativo." },
+  { id: "pig", name: "Porco", description: "Curioso e persistente." },
+  { id: "polar", name: "Urso-polar", description: "Resiliente nos desafios." },
+  { id: "tiger", name: "Tigre", description: "Foco e coragem." },
+] as const;
+
+export const ANIMAL_IDS = ANIMAL_CATALOG.map((animal) => animal.id) as unknown as [string, ...string[]];

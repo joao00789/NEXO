@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="NEXO">
+  <rect width="64" height="64" rx="14" fill="#0A0A0B"/>
+  <path d="M10 44c5.5-3 12.5-3.6 18-.6V55c-5.5-3-12.5-2.4-18 .6V44Z" fill="#F5F5F5"/>
+  <path d="M54 44c-5.5-3-12.5-3.6-18-.6V55c5.5-3 12.5-2.4 18 .6V44Z" fill="#9A9CA3"/>
+  <path d="M32 14v20" stroke="#2E6BFF" stroke-width="4" stroke-linecap="round"/>
+  <path d="M24.5 21.5 32 14l7.5 7.5" stroke="#2E6BFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="m12 16 20-7 20 7-20 7-20-7Z" fill="#2E6BFF"/>
+  <path d="M20 19.5v5.5c0 2.5 5.4 4.5 12 4.5s12-2 12-4.5v-5.5" stroke="#2E6BFF" stroke-width="3" stroke-linecap="round"/>
+</svg>

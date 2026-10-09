@@ -1,0 +1,14 @@
+# Configuração do Supabase — projeto NEXO.
+# Gere/ajuste com o Supabase CLI (`supabase init` já roda isso quando
+# a pasta não existe). Não coloque segredos neste arquivo.
+
+project_id = "nexo"
+
+[api]
+enabled = true
+
+[db]
+major_version = 15
+
+[auth]
+enabled = true
