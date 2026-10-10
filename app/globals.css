@@ -223,12 +223,258 @@
   --sidebar-ring: #ffad66;
 }
 
+[data-theme="ocean"] {
+  --background: #07131b;
+  --foreground: #edfaff;
+  --surface: #0b1c27;
+  --card: #112936;
+  --card-foreground: #edfaff;
+  --popover: #112936;
+  --popover-foreground: #edfaff;
+  --primary: #36c5e8;
+  --primary-foreground: #06131a;
+  --brand: #36c5e8;
+  --brand-foreground: #06131a;
+  --secondary: #173747;
+  --secondary-foreground: #edfaff;
+  --muted: #10232e;
+  --muted-foreground: #a1bdca;
+  --accent: #1b4051;
+  --accent-foreground: #edfaff;
+  --border: #254657;
+  --input: #254657;
+  --ring: #36c5e8;
+  --sidebar: #091923;
+  --sidebar-foreground: #edfaff;
+  --sidebar-primary: #36c5e8;
+  --sidebar-primary-foreground: #06131a;
+  --sidebar-accent: #173747;
+  --sidebar-accent-foreground: #edfaff;
+  --sidebar-border: #254657;
+  --sidebar-ring: #36c5e8;
+}
+
+[data-theme="sakura"] {
+  --background: #180e16;
+  --foreground: #fff3f8;
+  --surface: #24131f;
+  --card: #301a29;
+  --card-foreground: #fff3f8;
+  --popover: #301a29;
+  --popover-foreground: #fff3f8;
+  --primary: #ff8eb4;
+  --primary-foreground: #290b19;
+  --brand: #ff8eb4;
+  --brand-foreground: #290b19;
+  --secondary: #3a2032;
+  --secondary-foreground: #fff3f8;
+  --muted: #281722;
+  --muted-foreground: #c9a9b9;
+  --accent: #48283c;
+  --accent-foreground: #fff3f8;
+  --border: #563147;
+  --input: #563147;
+  --ring: #ff8eb4;
+  --sidebar: #1e111b;
+  --sidebar-foreground: #fff3f8;
+  --sidebar-primary: #ff8eb4;
+  --sidebar-primary-foreground: #290b19;
+  --sidebar-accent: #3a2032;
+  --sidebar-accent-foreground: #fff3f8;
+  --sidebar-border: #563147;
+  --sidebar-ring: #ff8eb4;
+}
+
+[data-theme="cyber"] {
+  --background: #11130a;
+  --foreground: #f8ffe7;
+  --surface: #1a1d0c;
+  --card: #242713;
+  --card-foreground: #f8ffe7;
+  --popover: #242713;
+  --popover-foreground: #f8ffe7;
+  --primary: #d5ed54;
+  --primary-foreground: #171b08;
+  --brand: #d5ed54;
+  --brand-foreground: #171b08;
+  --secondary: #30351a;
+  --secondary-foreground: #f8ffe7;
+  --muted: #202310;
+  --muted-foreground: #b5bd91;
+  --accent: #3a4020;
+  --accent-foreground: #f8ffe7;
+  --border: #4a512a;
+  --input: #4a512a;
+  --ring: #d5ed54;
+  --sidebar: #15170b;
+  --sidebar-foreground: #f8ffe7;
+  --sidebar-primary: #d5ed54;
+  --sidebar-primary-foreground: #171b08;
+  --sidebar-accent: #30351a;
+  --sidebar-accent-foreground: #f8ffe7;
+  --sidebar-border: #4a512a;
+  --sidebar-ring: #d5ed54;
+}
+
+[data-theme="volcano"] {
+  --background: #190c0b;
+  --foreground: #fff4ef;
+  --surface: #251210;
+  --card: #321a17;
+  --card-foreground: #fff4ef;
+  --popover: #321a17;
+  --popover-foreground: #fff4ef;
+  --primary: #ff765e;
+  --primary-foreground: #2b0d08;
+  --brand: #ff765e;
+  --brand-foreground: #2b0d08;
+  --secondary: #3c201a;
+  --secondary-foreground: #fff4ef;
+  --muted: #291713;
+  --muted-foreground: #c6a49b;
+  --accent: #4c2820;
+  --accent-foreground: #fff4ef;
+  --border: #593027;
+  --input: #593027;
+  --ring: #ff765e;
+  --sidebar: #1f100e;
+  --sidebar-foreground: #fff4ef;
+  --sidebar-primary: #ff765e;
+  --sidebar-primary-foreground: #2b0d08;
+  --sidebar-accent: #3c201a;
+  --sidebar-accent-foreground: #fff4ef;
+  --sidebar-border: #593027;
+  --sidebar-ring: #ff765e;
+}
+
+[data-theme="crystal"] {
+  --background: #0d1020;
+  --foreground: #f2f5ff;
+  --surface: #141a2b;
+  --card: #1b2338;
+  --card-foreground: #f2f5ff;
+  --popover: #1b2338;
+  --popover-foreground: #f2f5ff;
+  --primary: #83a8ff;
+  --primary-foreground: #0b1530;
+  --brand: #83a8ff;
+  --brand-foreground: #0b1530;
+  --secondary: #242f4a;
+  --secondary-foreground: #f2f5ff;
+  --muted: #171e31;
+  --muted-foreground: #aab7d4;
+  --accent: #2a3859;
+  --accent-foreground: #f2f5ff;
+  --border: #35466d;
+  --input: #35466d;
+  --ring: #83a8ff;
+  --sidebar: #111626;
+  --sidebar-foreground: #f2f5ff;
+  --sidebar-primary: #83a8ff;
+  --sidebar-primary-foreground: #0b1530;
+  --sidebar-accent: #242f4a;
+  --sidebar-accent-foreground: #f2f5ff;
+  --sidebar-border: #35466d;
+  --sidebar-ring: #83a8ff;
+}
+
 .nexo-shell {
+  position: relative;
+  isolation: isolate;
   background-color: var(--background);
   background-image:
     radial-gradient(circle at 4% 0%, color-mix(in srgb, var(--primary) 12%, transparent), transparent 32rem),
     radial-gradient(circle at 100% 100%, color-mix(in srgb, var(--primary) 7%, transparent), transparent 36rem);
   transition: background-color 220ms ease, color 220ms ease;
+}
+
+.nexo-shell::before {
+  position: fixed;
+  z-index: 0;
+  pointer-events: none;
+  content: "";
+  inset: 0;
+  opacity: 0.3;
+  background-size: 180% 180%;
+  animation: nexo-background-drift 32s ease-in-out infinite alternate;
+}
+
+.nexo-shell > div {
+  position: relative;
+  z-index: 1;
+}
+
+.nexo-shell[data-theme="aurora"]::before {
+  background-image:
+    radial-gradient(ellipse at 20% 20%, #39c99a35, transparent 42%),
+    radial-gradient(ellipse at 80% 70%, #40d7bc25, transparent 45%);
+}
+
+.nexo-shell[data-theme="nebula"]::before {
+  opacity: 0.4;
+  background-image:
+    radial-gradient(circle at 18% 28%, #ffffffaa 0 1px, transparent 2px),
+    radial-gradient(circle at 72% 44%, #d7c3ffbb 0 1px, transparent 2px),
+    radial-gradient(circle at 45% 76%, #ffffff88 0 1px, transparent 2px),
+    radial-gradient(ellipse at 70% 18%, #9e68ff32, transparent 42%),
+    radial-gradient(ellipse at 20% 82%, #5642ce28, transparent 44%);
+  background-size: 220px 220px, 280px 280px, 340px 340px, 180% 180%, 180% 180%;
+  animation: nexo-star-drift 45s linear infinite;
+}
+
+.nexo-shell[data-theme="sunrise"]::before {
+  background-image:
+    radial-gradient(ellipse at 82% 8%, #ffad6645, transparent 35%),
+    linear-gradient(155deg, transparent 35%, #ff8d4d12 52%, transparent 70%);
+}
+
+.nexo-shell[data-theme="ocean"]::before {
+  background-image:
+    radial-gradient(ellipse at 20% 30%, #1689d438, transparent 42%),
+    radial-gradient(ellipse at 75% 78%, #36c5e82e, transparent 45%),
+    repeating-linear-gradient(165deg, transparent 0 54px, #76e4ff0a 56px 58px, transparent 60px 108px);
+  animation-duration: 24s;
+}
+
+.nexo-shell[data-theme="sakura"]::before {
+  opacity: 0.32;
+  background-image:
+    radial-gradient(ellipse at 15% 15%, #ff8eb45c 0 4px, transparent 6px),
+    radial-gradient(ellipse at 72% 38%, #ffc2d477 0 3px, transparent 6px),
+    radial-gradient(ellipse at 48% 72%, #ff8eb450 0 4px, transparent 7px),
+    radial-gradient(ellipse at 88% 84%, #ffc2d45c 0 3px, transparent 6px),
+    radial-gradient(ellipse at 75% 12%, #ed5e9c2a, transparent 38%);
+  background-size: 190px 260px, 250px 310px, 310px 360px, 230px 290px, 180% 180%;
+  animation: nexo-petal-drift 28s ease-in-out infinite alternate;
+}
+
+.nexo-shell[data-theme="cyber"]::before {
+  opacity: 0.25;
+  background-image:
+    linear-gradient(#d5ed5418 1px, transparent 1px),
+    linear-gradient(90deg, #d5ed5418 1px, transparent 1px),
+    radial-gradient(ellipse at 50% 0%, #d5ed5438, transparent 45%);
+  background-size: 42px 42px, 42px 42px, 180% 180%;
+  animation: nexo-grid-drift 20s linear infinite;
+}
+
+.nexo-shell[data-theme="volcano"]::before {
+  opacity: 0.34;
+  background-image:
+    radial-gradient(ellipse at 15% 90%, #ff421f3d, transparent 38%),
+    radial-gradient(ellipse at 80% 65%, #ff9e3630, transparent 42%),
+    linear-gradient(0deg, #ff421f12, transparent 45%);
+  animation: nexo-ember-drift 18s ease-in-out infinite alternate;
+}
+
+.nexo-shell[data-theme="crystal"]::before {
+  opacity: 0.34;
+  background-image:
+    linear-gradient(125deg, transparent 20%, #83a8ff18 40%, #ffffff0b 48%, transparent 62%),
+    radial-gradient(ellipse at 78% 16%, #9d7cff32, transparent 40%),
+    radial-gradient(ellipse at 14% 82%, #4a91ff2b, transparent 42%);
+  background-size: 240% 240%, 180% 180%, 180% 180%;
+  animation: nexo-crystal-shimmer 18s ease-in-out infinite alternate;
 }
 
 .nexo-sidebar,
@@ -247,6 +493,70 @@
 
 [data-theme="sunrise"] .nexo-themed-content {
   animation: nexo-sunrise-enter 400ms ease-out both;
+}
+
+[data-theme="ocean"] .nexo-themed-content,
+[data-theme="sakura"] .nexo-themed-content,
+[data-theme="cyber"] .nexo-themed-content,
+[data-theme="volcano"] .nexo-themed-content,
+[data-theme="crystal"] .nexo-themed-content {
+  animation: nexo-nebula-enter 420ms ease-out both;
+}
+
+[data-theme-preview]::before {
+  position: absolute;
+  pointer-events: none;
+  content: "";
+  inset: -50%;
+  opacity: 0.6;
+  background:
+    radial-gradient(ellipse at 30% 30%, color-mix(in srgb, var(--preview-glow, #ffffff) 45%, transparent), transparent 42%),
+    radial-gradient(ellipse at 75% 70%, color-mix(in srgb, var(--preview-glow, #ffffff) 30%, transparent), transparent 45%);
+  animation: nexo-preview-drift 8s ease-in-out infinite alternate;
+}
+
+[data-theme-preview="aurora"] { --preview-glow: #39c99a; }
+[data-theme-preview="nebula"] { --preview-glow: #ad8cff; }
+[data-theme-preview="sunrise"] { --preview-glow: #ffad66; }
+[data-theme-preview="ocean"] { --preview-glow: #36c5e8; }
+[data-theme-preview="sakura"] { --preview-glow: #ff8eb4; }
+[data-theme-preview="cyber"] { --preview-glow: #d5ed54; }
+[data-theme-preview="volcano"] { --preview-glow: #ff765e; }
+[data-theme-preview="crystal"] { --preview-glow: #83a8ff; }
+
+@keyframes nexo-background-drift {
+  from { background-position: 0% 0%; transform: scale(1); }
+  to { background-position: 100% 100%; transform: scale(1.08); }
+}
+
+@keyframes nexo-star-drift {
+  from { background-position: 0 0, 0 0, 0 0, 0% 20%, 100% 70%; }
+  to { background-position: 80px 140px, -120px 90px, 160px -80px, 100% 80%, 0% 20%; }
+}
+
+@keyframes nexo-petal-drift {
+  from { background-position: 0 -20px, 20px 30px, -10px 0, 30px -10px, 20% 30%; }
+  to { background-position: 70px 220px, -60px 280px, 90px 300px, -50px 250px, 90% 70%; }
+}
+
+@keyframes nexo-grid-drift {
+  from { background-position: 0 0, 0 0, 0% 0%; }
+  to { background-position: 42px 42px, 42px 42px, 100% 100%; }
+}
+
+@keyframes nexo-ember-drift {
+  from { background-position: 0% 100%, 100% 30%, 50% 100%; }
+  to { background-position: 40% 40%, 40% 80%, 50% 0%; }
+}
+
+@keyframes nexo-crystal-shimmer {
+  from { background-position: 0% 20%, 100% 0%, 0% 100%; }
+  to { background-position: 100% 80%, 0% 100%, 100% 0%; }
+}
+
+@keyframes nexo-preview-drift {
+  from { transform: rotate(-8deg) translateX(-4%); }
+  to { transform: rotate(8deg) translateX(4%); }
 }
 
 @keyframes nexo-aurora-enter {

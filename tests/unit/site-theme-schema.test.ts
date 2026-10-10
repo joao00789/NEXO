@@ -6,6 +6,7 @@ import {
   siteThemeInventorySchema,
   siteThemesSchema,
 } from "@/lib/themes/schemas";
+import { SITE_THEME_IDS } from "@/lib/themes/catalog";
 
 test("validates the available site theme catalog", () => {
   const parsed = siteThemesSchema.safeParse([
@@ -18,11 +19,12 @@ test("validates the available site theme catalog", () => {
   ]);
 
   assert.equal(parsed.success, true);
+  assert.equal(SITE_THEME_IDS.length, 8);
 });
 
 test("rejects unknown themes and permits restoring the default theme", () => {
   assert.equal(activeThemeInputSchema.safeParse("default").success, true);
-  assert.equal(activeThemeInputSchema.safeParse("nebula").success, true);
+  assert.equal(activeThemeInputSchema.safeParse("ocean").success, true);
   assert.equal(activeThemeInputSchema.safeParse("unknown").success, false);
 });
 

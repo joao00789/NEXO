@@ -104,11 +104,12 @@ export function SiteThemeShop({
             <Card key={theme.id} className="overflow-hidden border-border bg-card">
               <div
                 className="relative flex h-36 items-end overflow-hidden p-4"
+                data-theme-preview={theme.id}
                 style={{
                   background: `radial-gradient(circle at 85% 10%, ${preview.glow}55, transparent 45%), ${preview.surface}`,
                 }}
               >
-                <div className="w-full rounded-xl border border-white/10 bg-black/20 p-3 backdrop-blur-sm">
+                <div className="relative z-10 w-full rounded-xl border border-white/10 bg-black/20 p-3 backdrop-blur-sm">
                   <div className="flex items-center gap-2">
                     <span className="size-2 rounded-full" style={{ backgroundColor: preview.primary }} />
                     <span className="h-2 w-16 rounded-full bg-white/45" />
@@ -119,7 +120,7 @@ export function SiteThemeShop({
                     <span className="h-7 rounded-md" style={{ backgroundColor: `${preview.primary}30` }} />
                   </div>
                 </div>
-                <div className="absolute right-4 top-4 rounded-full border border-white/10 bg-black/20 p-2 text-white">
+                <div className="absolute right-4 top-4 z-10 rounded-full border border-white/10 bg-black/20 p-2 text-white">
                   <Palette aria-hidden="true" className="size-4" />
                 </div>
               </div>
