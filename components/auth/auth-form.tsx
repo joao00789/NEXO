@@ -1,6 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
+import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,6 +17,7 @@ export function AuthForm({
   passwordLabel = "Senha",
   nameField = false,
   nameLabel = "Nome",
+  initialError,
   footer,
 }: {
   action: (state: unknown, formData: FormData) => Promise<AuthActionState>;
@@ -26,6 +28,7 @@ export function AuthForm({
   passwordLabel?: string;
   nameField?: boolean;
   nameLabel?: string;
+  initialError?: string;
   footer: React.ReactNode;
 }) {
   const [state, formAction, isPending] = useActionState(action, {});
@@ -77,9 +80,9 @@ export function AuthForm({
           />
         </div>
 
-        {state.error ? (
+        {state.error || initialError ? (
           <p role="alert" className="text-destructive text-sm">
-            {state.error}
+            {state.error ?? initialError}
           </p>
         ) : null}
 
@@ -93,6 +96,20 @@ export function AuthForm({
           {isPending ? "Aguarde..." : submitLabel}
         </Button>
       </form>
+
+      <div className="my-5 flex items-center gap-3" aria-hidden="true">
+        <span className="h-px flex-1 bg-border" />
+        <span className="text-muted-foreground text-xs uppercase">ou</span>
+        <span className="h-px flex-1 bg-border" />
+      </div>
+      <Button
+        variant="outline"
+        className="w-full"
+        render={<Link href="/auth/google?next=%2Fapp" />}
+      >
+        <span aria-hidden="true" className="font-bold text-[#4285F4]">G</span>
+        Continuar com Google
+      </Button>
 
       {footer}
     </div>
