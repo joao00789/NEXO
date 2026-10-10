@@ -63,6 +63,33 @@ export function ContentLibrary({
         </a>
       </section>
 
+      <section aria-labelledby="nexo-study-advice" className="rounded-[22px] border border-border bg-card/70 p-4 sm:p-5">
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <h2 id="nexo-study-advice" className="font-display text-xl font-semibold text-foreground">
+              Conselhos do NEXO para estudar melhor
+            </h2>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Estratégias simples para transformar leitura em aprendizagem ativa.
+            </p>
+          </div>
+          <Link href="/app/conteudos/redacao-passo-a-passo" className="text-sm font-medium text-primary hover:underline">
+            Ver guia completo de redação
+          </Link>
+        </div>
+        <ul className="mt-4 grid gap-3 text-sm leading-relaxed text-muted-foreground md:grid-cols-3">
+          <li className="rounded-xl border border-border bg-background/60 p-3">
+            Depois de ler, feche o resumo e tente explicar a ideia principal com suas palavras.
+          </li>
+          <li className="rounded-xl border border-border bg-background/60 p-3">
+            Faça um exercício sem consultar a solução; use o erro para escolher o que revisar.
+          </li>
+          <li className="rounded-xl border border-border bg-background/60 p-3">
+            Retome os assuntos difíceis em outro dia e alterne áreas para praticar a recuperação da memória.
+          </li>
+        </ul>
+      </section>
+
       <form method="get" role="search" className="max-w-xl rounded-[22px] border border-border bg-card/80 p-3 shadow-[0_20px_35px_rgba(0,0,0,0.18)]">
         <div className="flex gap-2">
           <label htmlFor="content-search" className="sr-only">

@@ -19,6 +19,15 @@ const practiceArea: Record<string, string> = {
   Linguagens: "linguagens",
   "Ciências Humanas": "humanas",
   "Ciências da Natureza": "natureza",
+  Redação: "linguagens",
+};
+
+const nexotips: Record<string, string> = {
+  Matemática: "Antes de calcular, anote o que o enunciado pede e confira as unidades no resultado.",
+  Linguagens: "Leia o comando da questão e procure no texto a evidência que sustenta sua interpretação.",
+  "Ciências Humanas": "Relacione fonte, contexto, período e ponto de vista; evite explicar um processo por uma causa única.",
+  "Ciências da Natureza": "Desenhe o processo ou organize os dados e só então escolha a fórmula ou conceito.",
+  Redação: "Planeje a tese e os dois eixos antes de escrever; na revisão, confira se cada argumento ajuda a responder ao tema.",
 };
 
 export async function generateMetadata({
@@ -54,6 +63,32 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
         <p className="text-muted-foreground leading-relaxed">{content.summary}</p>
       </header>
 
+      {content.steps?.length ? (
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">Roteiro passo a passo</CardTitle>
+            <CardDescription>
+              Um caminho de estudo possível. Adapte a estrutura ao tema e às suas ideias.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ol className="flex flex-col gap-4">
+              {content.steps.map((step) => (
+                <li key={step.title} className="flex gap-3">
+                  <span className="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-semibold text-primary">
+                    {step.title.match(/^\d+/)?.[0]}
+                  </span>
+                  <div>
+                    <h2 className="text-sm font-semibold">{step.title.replace(/^\d+\.\s*/, "")}</h2>
+                    <p className="text-muted-foreground mt-1 text-sm leading-relaxed">{step.description}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </CardContent>
+        </Card>
+      ) : null}
+
       <Card>
         <CardHeader>
           <CardTitle className="text-base">Ideias principais</CardTitle>
@@ -84,12 +119,20 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-base">
             <Lightbulb aria-hidden className="text-brand size-4" />
-            Exemplo resolvido
+            Exercício do tema
           </CardTitle>
-          <CardDescription>{content.example.prompt}</CardDescription>
+          <CardDescription>
+            Tente resolver antes de abrir a resposta. Anote seu raciocínio e só depois confira.
+          </CardDescription>
         </CardHeader>
         <CardContent>
-          <p className="text-sm leading-relaxed">{content.example.solution}</p>
+          <p className="text-sm leading-relaxed">{content.example.prompt}</p>
+          <details className="mt-4 rounded-lg border border-border bg-muted/30 p-3">
+            <summary className="cursor-pointer text-sm font-medium">
+              Conferir uma resolução possível
+            </summary>
+            <p className="mt-3 text-sm leading-relaxed">{content.example.solution}</p>
+          </details>
         </CardContent>
       </Card>
 
@@ -129,23 +172,36 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
         </CardContent>
       </Card>
 
+      <Card className="border-primary/20 bg-primary/5">
+        <CardHeader>
+          <CardTitle className="text-base">Conselho do NEXO</CardTitle>
+          <CardDescription className="leading-relaxed">
+            {nexotips[content.area] ?? "Estude em blocos curtos, tente lembrar o conteúdo sem consultar o resumo e volte aos pontos que ainda geram dúvida."}
+          </CardDescription>
+        </CardHeader>
+      </Card>
+
       <div className="flex flex-wrap items-center gap-3">
         {content.area === "Redação" ? (
           <Link href="/app/redacao" className={buttonVariants()}>
-            Escrever uma redação
+            Praticar uma redação
             <ArrowRight aria-hidden />
           </Link>
-        ) : (
-          <Link
-            href={`/app/questoes?area=${practiceArea[content.area] ?? "matematica"}&subject=${encodeURIComponent(content.subject)}&topic=${encodeURIComponent(content.title)}&quantidade=5`}
-            className={buttonVariants()}
-          >
-            Praticar esse tema
-            <ArrowRight aria-hidden />
-          </Link>
-        )}
+        ) : null}
+        <Link
+          href={`/app/questoes?area=${practiceArea[content.area] ?? "matematica"}&subject=${encodeURIComponent(content.subject)}&topic=${encodeURIComponent(content.title)}`}
+          className={buttonVariants({ variant: content.area === "Redação" ? "outline" : "default" })}
+        >
+          Gerar exercício deste tema
+          <ArrowRight aria-hidden />
+        </Link>
+        {content.area !== "Redação" ? (
+          <span className="text-muted-foreground text-xs">
+            Questões novas são geradas para este tema e corrigidas ao responder.
+          </span>
+        ) : null}
         <span className="text-muted-foreground text-xs">
-          Material autoral de apoio, não oficial do ENEM.
+          Material autoral de apoio, não oficial do ENEM. Referências da Wikipédia são complementares.
         </span>
       </div>
     </article>

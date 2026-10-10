@@ -1,3 +1,6 @@
+import { additionalStudyContents } from "./enrichment";
+import { resources, videoSearch } from "./resources";
+
 export type StudyContent = {
   slug: string;
   title: string;
@@ -9,27 +12,14 @@ export type StudyContent = {
   commonMistakes: string[];
   formula?: string;
   visual?: "percentage" | "equation" | "triangle" | "cell" | "energy" | "argument";
+  steps?: { title: string; description: string }[];
   resources?: { label: string; url: string; kind: "leitura" | "videoaula" | "oficial" }[];
 };
 
 export const officialEnemArchiveUrl =
   "https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/provas-e-gabaritos";
 
-const videoSearch = (query: string) =>
-  `https://www.youtube.com/results?search_query=${encodeURIComponent(`${query} aula ENEM`)}`;
-
-const resources = (
-  reading: { label: string; url: string },
-  video: string,
-  wikiQuery = reading.label.replace(/ · .*/, ""),
-): StudyContent["resources"] => [
-  { ...reading, kind: "leitura" },
-  { label: `Videoaulas: ${video}`, url: videoSearch(video), kind: "videoaula" },
-  { label: "Toda Matéria · conteúdos do ENEM", url: "https://www.todamateria.com.br/enem/materias/", kind: "leitura" },
-  { label: `Wikipédia · pesquisar ${wikiQuery}`, url: `https://pt.wikipedia.org/w/index.php?search=${encodeURIComponent(wikiQuery)}`, kind: "leitura" },
-];
-
-export const studyContents: StudyContent[] = [
+const coreStudyContents: StudyContent[] = [
   {
     slug: "porcentagem",
     title: "Porcentagem",
@@ -646,6 +636,26 @@ export const studyContents: StudyContent[] = [
     resources: resources({ label: "Gêneros textuais · Toda Matéria", url: "https://www.todamateria.com.br/generos-textuais/" }, "gêneros textuais interpretação ENEM"),
   },
 ];
+
+
+export const studyContents = [...coreStudyContents, ...additionalStudyContents].map((content) => {
+  if (content.resources?.some((resource) => resource.url.includes("wikipedia.org"))) {
+    return content;
+  }
+
+  const wikiQuery = `${content.subject} ${content.title}`;
+  return {
+    ...content,
+    resources: [
+      ...(content.resources ?? []),
+      {
+        label: `Wikipédia · pesquisar ${content.title}`,
+        url: `https://pt.wikipedia.org/w/index.php?search=${encodeURIComponent(wikiQuery)}`,
+        kind: "leitura" as const,
+      },
+    ],
+  };
+});
 
 export function getStudyContent(slug: string) {
   return studyContents.find((content) => content.slug === slug);
