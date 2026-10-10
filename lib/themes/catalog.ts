@@ -11,6 +11,10 @@ export const SITE_THEME_IDS = [
   "forest",
   "amethyst",
   "crimson",
+  "black",
+  "black-neon",
+  "black-emerald",
+  "black-rose",
 ] as const;
 
 export type SiteThemeId = (typeof SITE_THEME_IDS)[number];
@@ -33,4 +37,8 @@ export const siteThemePreviews: Record<
   forest: { primary: "#5fd6a0", surface: "#14251e", glow: "#2fa878" },
   amethyst: { primary: "#bd91ff", surface: "#21182e", glow: "#8b5bd6" },
   crimson: { primary: "#ff7188", surface: "#29151c", glow: "#d64560" },
+  black: { primary: "#d4d4d8", surface: "#09090b", glow: "#73737d" },
+  "black-neon": { primary: "#42e8f5", surface: "#05090d", glow: "#087caa" },
+  "black-emerald": { primary: "#4de6a1", surface: "#050b08", glow: "#087b4b" },
+  "black-rose": { primary: "#ff5da2", surface: "#0b0509", glow: "#9b174f" },
 };
