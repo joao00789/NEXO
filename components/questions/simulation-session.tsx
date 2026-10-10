@@ -150,8 +150,8 @@ export function SimulationSession({
 
     return (
       <div className="space-y-5">
-        <section className="rounded-[24px] border border-border bg-[radial-gradient(circle_at_top_left,_rgba(46,107,255,0.20),_transparent_38%),linear-gradient(135deg,_rgba(18,24,38,0.96),_rgba(10,11,15,0.96))] p-5">
-          <p className="text-xs uppercase tracking-[0.24em] text-sky-200/80">Sessão concluída</p>
+        <section className="theme-hero rounded-[24px] border border-border p-5">
+          <p className="text-xs uppercase tracking-[0.24em] text-primary/80">Sessão concluída</p>
           <h2 className="mt-2 font-display text-3xl font-bold text-white">
             {submission.result.correct_count} de {questions.length} acertos
           </h2>
@@ -216,7 +216,7 @@ export function SimulationSession({
     <div className="space-y-4">
       <section className="flex flex-wrap items-center justify-between gap-3 rounded-[20px] border border-border bg-card/80 p-4">
         <div className="flex items-center gap-3">
-          <div className={`rounded-xl border p-2 ${remainingSeconds < 60 ? "border-red-400/30 bg-red-400/10 text-red-200" : "border-primary/20 bg-primary/10 text-sky-200"}`}>
+          <div className={`rounded-xl border p-2 ${remainingSeconds < 60 ? "border-red-400/30 bg-red-400/10 text-red-200" : "border-primary/20 bg-primary/10 text-primary"}`}>
             <Clock3 aria-hidden className="size-5" />
           </div>
           <div>

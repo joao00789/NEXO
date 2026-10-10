@@ -86,13 +86,13 @@ export function DashboardOverview({
     <div className="space-y-6">
       <div className="grid gap-6 xl:grid-cols-[minmax(0,1.7fr)_360px]">
         <div className="space-y-6">
-          <section className="relative overflow-hidden rounded-[28px] border border-border bg-[radial-gradient(circle_at_top_left,_rgba(46,107,255,0.20),_transparent_35%),linear-gradient(135deg,_rgba(18,24,38,0.96),_rgba(10,11,15,0.96))] p-6 shadow-[0_20px_60px_rgba(12,18,33,0.55)]">
+          <section className="theme-hero relative overflow-hidden rounded-[28px] border border-border p-6 shadow-[0_20px_60px_rgba(12,18,33,0.25)]">
             <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-primary/20 blur-3xl" />
-            <div className="absolute -bottom-8 right-10 h-28 w-28 rounded-full bg-sky-400/10 blur-3xl" />
+            <div className="absolute -bottom-8 right-10 h-28 w-28 rounded-full bg-primary/10 blur-3xl" />
 
             <div className="relative flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
               <div>
-                <p className="text-xs font-medium uppercase tracking-[0.32em] text-sky-200/80">
+                <p className="text-xs font-medium uppercase tracking-[0.32em] text-primary/80">
                   NEXO IA
                 </p>
                 <h1 className="mt-3 font-display text-3xl font-bold text-white md:text-4xl">
@@ -104,7 +104,7 @@ export function DashboardOverview({
               </div>
 
               <div className="flex items-center gap-2 self-start rounded-full border border-white/10 bg-white/5 px-3 py-2 text-sm text-slate-200 backdrop-blur-sm">
-                <Sparkles className="size-4 text-sky-300" aria-hidden />
+                <Sparkles className="size-4 text-primary" aria-hidden />
                 {totalAnswers ? `${accuracy}% de acerto` : "Preparação ENEM"}
               </div>
             </div>
@@ -141,7 +141,7 @@ export function DashboardOverview({
                     {hasProgressError || !totalAnswers ? "—" : `${accuracy}%`}
                   </h2>
                 </div>
-                <div className="rounded-2xl border border-blue-500/30 bg-blue-500/10 p-2 text-blue-200">
+                <div className="rounded-2xl border border-primary/30 bg-primary/10 p-2 text-primary">
                   <Target className="size-4" aria-hidden />
                 </div>
               </div>
@@ -239,7 +239,7 @@ export function DashboardOverview({
                   </div>
                   <h3 className="text-base font-semibold text-white">Continue de onde parou</h3>
                 </div>
-                <Link href="/app/questoes" className="text-sm text-sky-300 hover:text-sky-200">
+                <Link href="/app/questoes" className="text-sm text-primary hover:text-primary/80">
                   Ver mais
                 </Link>
               </div>
@@ -258,7 +258,7 @@ export function DashboardOverview({
                               : "Sem progresso registrado"}
                         </p>
                       </div>
-                      <span className="rounded-full bg-primary/10 px-2 py-1 text-xs font-medium text-blue-200">
+                      <span className="rounded-full bg-primary/10 px-2 py-1 text-xs font-medium text-primary">
                         {hasProgressError
                           ? "—"
                           : area.total
@@ -300,7 +300,7 @@ export function DashboardOverview({
                 </p>
                 <Link
                   href="/app/missoes"
-                  className="mt-3 inline-flex items-center gap-2 text-sm font-medium text-sky-300 hover:text-sky-200"
+                  className="mt-3 inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary/80"
                 >
                   Ver missões
                   <ArrowRight aria-hidden className="size-4" />
@@ -314,7 +314,7 @@ export function DashboardOverview({
           <section className="rounded-[24px] border border-border bg-card/80 p-4 shadow-[0_20px_40px_rgba(0,0,0,0.18)]">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <div className="rounded-xl bg-primary/10 p-2 text-blue-200">
+                <div className="rounded-xl bg-primary/10 p-2 text-primary">
                   <Zap className="size-4" aria-hidden />
                 </div>
                 <h3 className="text-base font-semibold text-white">Calendário de estudos</h3>
@@ -340,10 +340,10 @@ export function DashboardOverview({
                       className={`flex size-8 items-center justify-center rounded-full border text-xs font-medium ${
                         active
                           ? day.isToday
-                            ? "border-white bg-primary text-white shadow-[0_0_16px_rgba(46,107,255,0.35)] ring-2 ring-primary/40 ring-offset-2 ring-offset-card"
-                            : "border-primary bg-primary text-white shadow-[0_0_16px_rgba(46,107,255,0.35)]"
+                            ? "border-white bg-primary text-primary-foreground shadow-[0_0_16px_color-mix(in_srgb,var(--primary)_35%,transparent)] ring-2 ring-primary/40 ring-offset-2 ring-offset-card"
+                            : "border-primary bg-primary text-primary-foreground shadow-[0_0_16px_color-mix(in_srgb,var(--primary)_35%,transparent)]"
                           : day.isToday
-                            ? "border-primary bg-primary/10 font-bold text-sky-100 ring-2 ring-primary/30 ring-offset-2 ring-offset-card"
+                            ? "border-primary bg-primary/10 font-bold text-primary ring-2 ring-primary/30 ring-offset-2 ring-offset-card"
                             : "border-transparent bg-slate-900 text-slate-500"
                       }`}
                     >
@@ -378,7 +378,7 @@ export function DashboardOverview({
               </p>
               <Link
                 href="/app/missoes"
-                className="mt-3 inline-flex items-center gap-2 text-sm font-medium text-sky-300 hover:text-sky-200"
+                className="mt-3 inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary/80"
               >
                 <ListChecks aria-hidden className="size-4" />
                 Acompanhar missões

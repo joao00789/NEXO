@@ -23,10 +23,10 @@ export function ContentLibrary({
 }) {
   return (
     <div className="space-y-6">
-      <section className="overflow-hidden rounded-[28px] border border-border bg-[radial-gradient(circle_at_top_left,_rgba(14,165,233,0.20),_transparent_35%),linear-gradient(135deg,_rgba(18,24,38,0.98),_rgba(10,11,16,0.94))] p-5 shadow-[0_20px_45px_rgba(10,17,30,0.45)]">
+      <section className="theme-hero overflow-hidden rounded-[28px] border border-border p-5 shadow-[0_20px_45px_rgba(10,17,30,0.25)]">
         <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
           <div>
-            <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-cyan-200/80">
+            <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-primary/80">
               Biblioteca de estudo
             </p>
             <h1 className="mt-2 font-display text-3xl font-bold text-white">Conteúdos</h1>
@@ -42,7 +42,7 @@ export function ContentLibrary({
         </p>
       </section>
 
-      <section className="flex flex-col gap-3 rounded-[22px] border border-sky-400/20 bg-sky-400/5 p-4 sm:flex-row sm:items-center sm:justify-between">
+      <section className="flex flex-col gap-3 rounded-[22px] border border-primary/20 bg-primary/5 p-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h2 className="font-semibold text-white">Provas anteriores e gabaritos oficiais</h2>
           <p className="mt-1 max-w-2xl text-sm text-slate-300">
@@ -55,7 +55,7 @@ export function ContentLibrary({
           rel="noopener noreferrer"
           className={buttonVariants({
             variant: "outline",
-            className: "w-fit shrink-0 border-sky-300/20 bg-sky-300/5 text-sky-100 hover:bg-sky-300/10",
+            className: "w-fit shrink-0 border-primary/20 bg-primary/5 text-primary hover:bg-primary/10",
           })}
         >
           Abrir acervo do INEP
@@ -91,7 +91,7 @@ export function ContentLibrary({
           {contents.map((content) => (
             <Card key={content.slug} className="overflow-hidden border-border bg-[linear-gradient(180deg,_rgba(18,24,38,0.9),_rgba(9,10,16,0.92))] shadow-[0_20px_35px_rgba(0,0,0,0.18)]">
               <CardHeader className="gap-2 pb-3">
-                <CardDescription className="text-sky-200/90">
+                <CardDescription className="text-primary/90">
                   {content.area} · {content.subject}
                 </CardDescription>
                 <CardTitle className="text-xl font-semibold text-white">{content.title}</CardTitle>
@@ -101,7 +101,7 @@ export function ContentLibrary({
                   {content.summary}
                 </p>
                 <div className="flex flex-wrap gap-2" aria-label="Recursos desta aula">
-                  {content.formula ? <span className="rounded-full border border-primary/30 bg-primary/10 px-2.5 py-1 text-[11px] text-sky-100">Fórmula</span> : null}
+                  {content.formula ? <span className="rounded-full border border-primary/30 bg-primary/10 px-2.5 py-1 text-[11px] text-primary">Fórmula</span> : null}
                   {content.visual ? <span className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] text-slate-200">Diagrama visual</span> : null}
                   {content.resources?.some((resource) => resource.kind === "videoaula") ? <span className="rounded-full border border-violet-500/30 bg-violet-500/10 px-2.5 py-1 text-[11px] text-violet-100">Videoaula externa</span> : null}
                   {content.resources?.some((resource) => resource.kind === "oficial") ? <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-1 text-[11px] text-emerald-100">Fonte oficial</span> : null}

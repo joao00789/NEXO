@@ -48,10 +48,10 @@ export default async function Page({
 
   return (
     <div className="space-y-6">
-      <section className="overflow-hidden rounded-[28px] border border-border bg-[radial-gradient(circle_at_top_left,_rgba(46,107,255,0.24),_transparent_30%),linear-gradient(135deg,_rgba(18,24,38,0.96),_rgba(10,11,16,0.96))] p-5 shadow-[0_20px_50px_rgba(8,10,18,0.5)]">
+      <section className="theme-hero overflow-hidden rounded-[28px] border border-border p-5 shadow-[0_20px_50px_rgba(8,10,18,0.25)]">
         <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
           <div>
-            <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-sky-200/80">
+            <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-primary/80">
               Treino inteligente
             </p>
             <h1 className="mt-2 font-display text-3xl font-bold text-white">Questões</h1>

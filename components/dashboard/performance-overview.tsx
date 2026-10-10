@@ -61,8 +61,8 @@ export function PerformanceOverview({
 
   return (
     <div className="space-y-6">
-      <header className="overflow-hidden rounded-[28px] border border-border bg-[radial-gradient(circle_at_top_left,_rgba(46,107,255,0.24),_transparent_32%),linear-gradient(135deg,_rgba(18,24,38,0.98),_rgba(10,11,16,0.94))] p-5 shadow-[0_20px_50px_rgba(8,10,18,0.5)] md:p-6">
-        <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-sky-200/80">
+      <header className="theme-hero overflow-hidden rounded-[28px] border border-border p-5 shadow-[0_20px_50px_rgba(8,10,18,0.25)] md:p-6">
+        <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-primary/80">
           Evolução de estudos
         </p>
         <div className="mt-2 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
@@ -73,7 +73,7 @@ export function PerformanceOverview({
             </p>
           </div>
           <div className="flex items-center gap-2 self-start rounded-full border border-white/10 bg-white/5 px-3 py-2 text-sm text-slate-200">
-            <Sparkles aria-hidden className="size-4 text-sky-300" />
+            <Sparkles aria-hidden className="size-4 text-primary" />
             Progresso pessoal
           </div>
         </div>
@@ -108,7 +108,7 @@ export function PerformanceOverview({
               <CardHeader className="pb-3">
                 <CardDescription className="text-slate-400">Tempo médio · últimas 20</CardDescription>
                 <CardTitle className="font-display flex items-center gap-2 text-3xl text-white">
-                  <Clock3 aria-hidden className="size-5 text-sky-300" />
+                  <Clock3 aria-hidden className="size-5 text-primary" />
                   {averageSeconds}s
                 </CardTitle>
               </CardHeader>
@@ -222,7 +222,7 @@ export function PerformanceOverview({
               <Card className="border-border bg-card/80">
                 <CardContent className="flex flex-col items-start gap-3 p-6">
                   <div className="flex items-center gap-2">
-                    <Target aria-hidden className="size-4 text-sky-300" />
+                    <Target aria-hidden className="size-4 text-primary" />
                     <h3 className="font-medium text-white">
                       Seu histórico começa no primeiro treino
                     </h3>

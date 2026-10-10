@@ -71,14 +71,14 @@ export function CosmeticsShop({
 
   return (
     <div className="flex flex-col gap-5">
-      <div className="flex flex-wrap items-center justify-between gap-3 rounded-[24px] border border-border bg-[linear-gradient(135deg,_rgba(28,34,52,0.85),_rgba(16,20,28,0.92))] p-4 shadow-[0_20px_40px_rgba(0,0,0,0.18)]">
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-[24px] border border-border bg-card/80 p-4 shadow-[0_20px_40px_rgba(0,0,0,0.18)]">
         <div>
-          <p className="text-[11px] uppercase tracking-[0.24em] text-slate-400">Seu saldo</p>
-          <p className="mt-2 flex items-center gap-2 text-2xl font-semibold text-white">
+          <p className="text-[11px] uppercase tracking-[0.24em] text-muted-foreground">Seu saldo</p>
+          <p className="mt-2 flex items-center gap-2 text-2xl font-semibold text-foreground">
             <Coins aria-hidden="true" className="size-5 text-amber-300" /> {coins} NEXO Coins
           </p>
         </div>
-        <p className="max-w-md text-sm text-slate-300">
+        <p className="max-w-md text-sm text-muted-foreground">
           Use suas moedas em itens cosméticos. A loja não vende conteúdo nem vantagem nos estudos.
         </p>
       </div>
@@ -92,7 +92,7 @@ export function CosmeticsShop({
             variant={category === value ? "secondary" : "outline"}
             aria-pressed={category === value}
             onClick={() => setCategory(value)}
-            className={category === value ? "border-primary/30 bg-primary/10 text-white" : "border-white/10 bg-white/5 text-slate-200 hover:bg-white/10"}
+            className={category === value ? "border-primary/30 bg-primary/10 text-foreground" : "border-border bg-card/60 text-foreground hover:bg-accent"}
           >
             {value === "all" ? "Todos" : categoryLabels[value]}
           </Button>
@@ -112,8 +112,8 @@ export function CosmeticsShop({
             const owned = ownedIds.has(item.id);
             const canAfford = coins >= item.price;
             return (
-              <Card key={item.id} className="overflow-hidden border-border bg-[linear-gradient(180deg,_rgba(18,24,38,0.9),_rgba(9,10,16,0.92))] shadow-[0_20px_35px_rgba(0,0,0,0.18)]">
-                <div className="flex h-32 items-center justify-center bg-[radial-gradient(circle_at_top,_rgba(46,107,255,0.18),_transparent_45%)]">
+              <Card key={item.id} className="overflow-hidden border-border bg-card shadow-[0_20px_35px_rgba(0,0,0,0.18)]">
+                <div className="flex h-32 items-center justify-center bg-[radial-gradient(circle_at_top,_color-mix(in_srgb,var(--primary)_18%,transparent),_transparent_45%)]">
                   <div
                     className="flex size-16 items-center justify-center rounded-2xl border border-white/10 bg-[#111214] shadow-lg"
                     style={{ boxShadow: `0 0 30px ${getCosmeticAccent(item.accent)}44` }}
