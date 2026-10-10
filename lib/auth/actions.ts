@@ -7,6 +7,7 @@ import { z } from "zod";
 import { requireUserSession } from "@/lib/auth/session";
 import {
   resetPasswordSchema,
+  getSignUpErrorMessage,
   signInSchema,
   signUpSchema,
 } from "@/lib/auth/validation";
@@ -43,17 +44,20 @@ export async function signUpAction(_: unknown, formData: FormData): Promise<Auth
     });
 
     if (error) {
-      if (error.code === "user_already_exists") {
-        return { error: "Este e-mail já tem uma conta. Entre ou redefina sua senha." };
-      }
-      return { error: error.message || "Não foi possível criar sua conta." };
+      console.error("Supabase signup rejected.", {
+        code: error.code ?? "unknown",
+        status: error.status ?? null,
+      });
+      return { error: getSignUpErrorMessage(error.code) };
     }
 
     if (!data.user) {
       return { error: "Não foi possível criar sua conta. Tente novamente." };
     }
   } catch (error) {
-    console.error("Signup action failed.", error);
+    console.error("Signup action failed.", {
+      name: error instanceof Error ? error.name : "UnknownError",
+    });
     return { error: "Não foi possível criar sua conta agora. Tente novamente." };
   }
 

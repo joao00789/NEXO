@@ -26,6 +26,24 @@ export const resetPasswordSchema = z.object({
   email: z.string().trim().email("Informe um e-mail válido."),
 });
 
+export function getSignUpErrorMessage(code: string | null | undefined) {
+  switch (code) {
+    case "user_already_exists":
+      return "Este e-mail já tem uma conta. Entre ou redefina sua senha.";
+    case "email_address_invalid":
+    case "validation_failed":
+      return "Confira o e-mail informado e tente novamente.";
+    case "weak_password":
+      return "Escolha uma senha mais forte, com pelo menos 8 caracteres.";
+    case "over_email_send_rate_limit":
+      return "Muitas tentativas em pouco tempo. Aguarde alguns minutos e tente novamente.";
+    case "signup_disabled":
+      return "O cadastro está temporariamente indisponível. Tente novamente mais tarde.";
+    default:
+      return "Não foi possível criar sua conta agora. Tente novamente.";
+  }
+}
+
 export type SignUpInput = z.infer<typeof signUpSchema>;
 export type SignInInput = z.infer<typeof signInSchema>;
 export type ResetPasswordInput = z.infer<typeof resetPasswordSchema>;
