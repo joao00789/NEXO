@@ -13,6 +13,7 @@ import {
 
 import { buttonVariants } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
+import { getLevelProgress } from "@/lib/gamification/levels";
 
 export type DashboardProfile = {
   full_name: string | null;
@@ -74,6 +75,7 @@ export function DashboardOverview({
   const totalAnswers = byArea.reduce((sum, area) => sum + area.total, 0);
   const accuracy = totalAnswers ? Math.round((totalCorrect / totalAnswers) * 100) : 0;
   const name = profile.full_name?.split(" ")[0] ?? "estudante";
+  const levelProgress = getLevelProgress(profile.xp);
 
   const quickStats = [
     { label: "Nível", value: `N${profile.level}` },
@@ -368,13 +370,27 @@ export function DashboardOverview({
                 </div>
                 <h3 className="text-base font-semibold text-white">XP conquistado</h3>
               </div>
-              <span className="text-xs text-slate-400">Nível {profile.level}</span>
+              <span className="text-xs text-slate-400">
+                Nível {levelProgress.level}
+              </span>
             </div>
 
             <div className="mt-5 rounded-2xl border border-border bg-slate-950/60 p-4">
               <p className="font-display text-2xl font-bold text-white">{profile.xp} XP</p>
-              <p className="mt-1 text-xs text-slate-400">
-                Responda questões para ganhar XP e avançar de nível.
+              <div className="mt-3 flex items-center justify-between gap-3 text-xs text-slate-400">
+                <span>
+                  Nível {levelProgress.level}: {levelProgress.xpIntoLevel}/
+                  {levelProgress.xpForNextLevel} XP
+                </span>
+                <span>{levelProgress.xpRemaining} XP para o próximo</span>
+              </div>
+              <Progress
+                className="mt-2"
+                value={levelProgress.progressPercent}
+                aria-label={`Nível ${levelProgress.level}: ${levelProgress.xpIntoLevel} de ${levelProgress.xpForNextLevel} XP`}
+              />
+              <p className="mt-2 text-xs text-slate-400">
+                A cada 100 XP você avança um nível.
               </p>
               <Link
                 href="/app/missoes"
