@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { connection } from "next/server";
 
 import { AppShell } from "@/components/layout/app-shell";
 import { requireUserSession } from "@/lib/auth/session";
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
 export const instant = false;
 
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
+  await connection();
   const user = await requireUserSession();
   const supabase = await createSupabaseServerClient();
   const { data: profile, error } = await supabase
