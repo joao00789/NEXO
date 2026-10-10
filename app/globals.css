@@ -130,6 +130,140 @@
   }
 }
 
+[data-theme="aurora"] {
+  --background: #081512;
+  --foreground: #effcf6;
+  --surface: #0d201a;
+  --card: #132a22;
+  --card-foreground: #effcf6;
+  --popover: #132a22;
+  --popover-foreground: #effcf6;
+  --primary: #39c99a;
+  --primary-foreground: #06130e;
+  --brand: #39c99a;
+  --brand-foreground: #06130e;
+  --secondary: #17352a;
+  --secondary-foreground: #effcf6;
+  --muted: #10251e;
+  --muted-foreground: #a1b8ad;
+  --accent: #1b3d30;
+  --accent-foreground: #effcf6;
+  --border: #25483a;
+  --input: #25483a;
+  --ring: #39c99a;
+  --sidebar: #0a1b15;
+  --sidebar-foreground: #effcf6;
+  --sidebar-primary: #39c99a;
+  --sidebar-primary-foreground: #06130e;
+  --sidebar-accent: #17352a;
+  --sidebar-accent-foreground: #effcf6;
+  --sidebar-border: #25483a;
+  --sidebar-ring: #39c99a;
+}
+
+[data-theme="nebula"] {
+  --background: #100c1a;
+  --foreground: #f5f1ff;
+  --surface: #191326;
+  --card: #211a31;
+  --card-foreground: #f5f1ff;
+  --popover: #211a31;
+  --popover-foreground: #f5f1ff;
+  --primary: #ad8cff;
+  --primary-foreground: #160d28;
+  --brand: #ad8cff;
+  --brand-foreground: #160d28;
+  --secondary: #2b2140;
+  --secondary-foreground: #f5f1ff;
+  --muted: #1a1427;
+  --muted-foreground: #b3a8c8;
+  --accent: #35264c;
+  --accent-foreground: #f5f1ff;
+  --border: #3c2d52;
+  --input: #3c2d52;
+  --ring: #ad8cff;
+  --sidebar: #151020;
+  --sidebar-foreground: #f5f1ff;
+  --sidebar-primary: #ad8cff;
+  --sidebar-primary-foreground: #160d28;
+  --sidebar-accent: #2b2140;
+  --sidebar-accent-foreground: #f5f1ff;
+  --sidebar-border: #3c2d52;
+  --sidebar-ring: #ad8cff;
+}
+
+[data-theme="sunrise"] {
+  --background: #19110d;
+  --foreground: #fff7ef;
+  --surface: #241811;
+  --card: #302018;
+  --card-foreground: #fff7ef;
+  --popover: #302018;
+  --popover-foreground: #fff7ef;
+  --primary: #ffad66;
+  --primary-foreground: #271307;
+  --brand: #ffad66;
+  --brand-foreground: #271307;
+  --secondary: #3b271b;
+  --secondary-foreground: #fff7ef;
+  --muted: #281b14;
+  --muted-foreground: #c7ad98;
+  --accent: #4a3020;
+  --accent-foreground: #fff7ef;
+  --border: #503725;
+  --input: #503725;
+  --ring: #ffad66;
+  --sidebar: #1e140f;
+  --sidebar-foreground: #fff7ef;
+  --sidebar-primary: #ffad66;
+  --sidebar-primary-foreground: #271307;
+  --sidebar-accent: #3b271b;
+  --sidebar-accent-foreground: #fff7ef;
+  --sidebar-border: #503725;
+  --sidebar-ring: #ffad66;
+}
+
+.nexo-shell {
+  background-color: var(--background);
+  background-image:
+    radial-gradient(circle at 4% 0%, color-mix(in srgb, var(--primary) 12%, transparent), transparent 32rem),
+    radial-gradient(circle at 100% 100%, color-mix(in srgb, var(--primary) 7%, transparent), transparent 36rem);
+  transition: background-color 220ms ease, color 220ms ease;
+}
+
+.nexo-sidebar,
+.nexo-header {
+  background-color: color-mix(in srgb, var(--surface) 94%, transparent);
+  transition: background-color 220ms ease, border-color 220ms ease;
+}
+
+[data-theme="aurora"] .nexo-themed-content {
+  animation: nexo-aurora-enter 380ms ease-out both;
+}
+
+[data-theme="nebula"] .nexo-themed-content {
+  animation: nexo-nebula-enter 440ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+[data-theme="sunrise"] .nexo-themed-content {
+  animation: nexo-sunrise-enter 400ms ease-out both;
+}
+
+@keyframes nexo-aurora-enter {
+  from { opacity: 0.75; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes nexo-nebula-enter {
+  from { opacity: 0.7; transform: scale(0.992); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes nexo-sunrise-enter {
+  from { opacity: 0.7; transform: translateX(8px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

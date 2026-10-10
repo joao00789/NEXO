@@ -9,8 +9,8 @@ import {
   ListChecks,
   Map,
   PenLine,
+  Palette,
   Settings,
-  ShoppingBag,
   Swords,
   Target,
   Timer,
@@ -30,7 +30,7 @@ export const navItems = [
   { href: "/app/missoes", label: "Missões", icon: Target },
   { href: "/app/avatar", label: "Avatar", icon: User },
   { href: "/app/batalhas", label: "Batalhas", icon: Swords },
-  { href: "/app/loja", label: "Loja", icon: ShoppingBag },
+  { href: "/app/loja", label: "Temas", icon: Palette },
   { href: "/app/configuracoes", label: "Configurações", icon: Settings },
 ] as const;
 
@@ -52,13 +52,13 @@ export function NavList({ onNavigate }: { onNavigate?: () => void }) {
             className={cn(
               "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all",
               active
-                ? "bg-primary/12 text-white shadow-[inset_0_0_0_1px_rgba(96,165,250,0.22)]"
-                : "text-slate-300 hover:bg-white/5 hover:text-white",
+                ? "bg-primary/12 text-foreground shadow-[inset_0_0_0_1px_color-mix(in_srgb,var(--primary)_28%,transparent)]"
+                : "text-muted-foreground hover:bg-accent hover:text-foreground",
             )}
           >
             <item.icon
               aria-hidden
-              className={cn("size-4 shrink-0", active ? "text-sky-200" : "text-slate-400")}
+              className={cn("size-4 shrink-0", active ? "text-primary" : "text-muted-foreground")}
             />
             {item.label}
           </Link>

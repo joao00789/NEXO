@@ -17,7 +17,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
   const supabase = await createSupabaseServerClient();
   const { data: profile, error } = await supabase
     .from("profiles")
-    .select("full_name, level")
+    .select("full_name, level, active_theme_id")
     .eq("id", user.id)
     .maybeSingle();
 
@@ -31,6 +31,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
   return (
     <AppShell
       account={profile && !error ? { fullName: profile.full_name, level: profile.level } : null}
+      activeTheme={profile && !error ? profile.active_theme_id : null}
     >
       {children}
     </AppShell>

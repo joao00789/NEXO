@@ -18,24 +18,23 @@ import {
 export function AppShell({
   children,
   account,
+  activeTheme,
 }: {
   children: React.ReactNode;
   account: { fullName: string | null; level: number } | null;
+  activeTheme: string | null;
 }) {
   const accountName = account?.fullName?.trim() || "Estudante";
   const accountInitial = accountName.charAt(0).toLocaleUpperCase("pt-BR");
 
   return (
-    <div className="min-h-screen bg-[#090d18] text-foreground">
+    <div className="nexo-shell min-h-screen text-foreground" data-theme={activeTheme ?? "default"}>
       <div className="mx-auto flex min-h-screen max-w-[1800px]">
-        <aside className="fixed inset-y-0 left-0 z-30 hidden w-72 flex-col border-r border-border bg-[linear-gradient(180deg,_rgba(17,18,23,0.94),_rgba(11,13,20,0.98))] px-4 py-5 lg:flex">
-          <div className="mb-5 flex h-14 items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-3">
+        <aside className="nexo-sidebar fixed inset-y-0 left-0 z-30 hidden w-72 flex-col border-r border-border px-4 py-5 lg:flex">
+          <div className="mb-5 flex h-14 items-center rounded-2xl border border-white/10 bg-white/5 px-3">
             <Link href="/" aria-label="NEXO — início" className="flex items-center">
               <Logo />
             </Link>
-            <span className="rounded-full border border-primary/30 bg-primary/10 px-2 py-1 text-[10px] font-medium uppercase tracking-[0.2em] text-sky-200">
-              IA
-            </span>
           </div>
 
           <div className="flex-1 overflow-y-auto rounded-2xl border border-white/5 bg-black/10 p-3">
@@ -44,7 +43,7 @@ export function AppShell({
         </aside>
 
         <div className="flex min-w-0 flex-1 flex-col lg:pl-72">
-          <header className="sticky top-0 z-20 border-b border-border bg-[#090d18]/80 px-4 py-3 backdrop-blur-xl sm:px-6">
+          <header className="nexo-header sticky top-0 z-20 border-b border-border bg-background/85 px-4 py-3 backdrop-blur-xl sm:px-6">
             <div className="flex items-center gap-3">
               <Sheet>
                 <SheetTrigger
@@ -59,7 +58,7 @@ export function AppShell({
                 >
                   <Menu />
                 </SheetTrigger>
-                <SheetContent side="left" className="w-72 p-0 bg-[#0d1220]">
+                <SheetContent side="left" className="nexo-sidebar w-72 p-0">
                   <SheetHeader className="border-border border-b p-4">
                     <SheetTitle>
                       <Link href="/" aria-label="NEXO — início">
@@ -75,7 +74,7 @@ export function AppShell({
 
               <div className="flex min-w-0 flex-1 items-center gap-3">
                 <label className="flex min-w-0 flex-1 items-center gap-2 rounded-full border border-border bg-surface/80 px-3 py-2 text-sm text-muted-foreground shadow-inner shadow-black/30">
-                  <Search className="size-4 text-slate-400" aria-hidden />
+                  <Search className="size-4 text-muted-foreground" aria-hidden />
                   <input
                     aria-label="Buscar no NEXO"
                     placeholder="Buscar cursos, materiais, temas..."
@@ -88,24 +87,24 @@ export function AppShell({
                 <button
                   type="button"
                   aria-label="Notificações"
-                  className="flex size-9 items-center justify-center rounded-full border border-border bg-white/5 text-slate-200 transition hover:bg-white/10"
+                  className="flex size-9 items-center justify-center rounded-full border border-border bg-card text-muted-foreground transition hover:bg-accent"
                 >
                   <Bell className="size-4" aria-hidden />
                 </button>
                 <button
                   type="button"
                   aria-label="IA assistente"
-                  className="flex size-9 items-center justify-center rounded-full border border-primary/30 bg-primary/10 text-sky-200 transition hover:bg-primary/20"
+                  className="flex size-9 items-center justify-center rounded-full border border-primary/30 bg-primary/10 text-primary transition hover:bg-primary/20"
                 >
                   <Sparkles className="size-4" aria-hidden />
                 </button>
                 <div className="flex items-center gap-2 rounded-full border border-border bg-white/5 px-2 py-1.5">
-                  <div className="flex size-8 items-center justify-center rounded-full bg-gradient-to-br from-primary to-sky-400 text-sm font-semibold text-white">
+                  <div className="flex size-8 items-center justify-center rounded-full bg-primary text-sm font-semibold text-primary-foreground">
                     {accountInitial}
                   </div>
                   <div className="hidden text-left sm:block">
                     <p className="max-w-28 truncate text-xs font-medium text-white">{accountName}</p>
-                    <p className="text-[10px] uppercase tracking-[0.2em] text-slate-400">
+                    <p                     className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
                       {account ? `Nível ${account.level}` : "Nível indisponível"}
                     </p>
                   </div>
@@ -121,7 +120,7 @@ export function AppShell({
             </div>
           </header>
 
-          <main className="w-full flex-1 px-4 py-6 sm:px-6 lg:px-8">
+          <main className="nexo-themed-content w-full flex-1 px-4 py-6 sm:px-6 lg:px-8">
             <div className="mx-auto max-w-[1600px]">{children}</div>
           </main>
         </div>
