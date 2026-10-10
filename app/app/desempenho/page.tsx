@@ -10,7 +10,7 @@ export default async function Page() {
   const user = await requireUserSession();
   const supabase = await createSupabaseServerClient();
 
-  const [progressResult, attemptsResult] = await Promise.all([
+  const [progressResult, attemptsResult, generatedAttemptsResult] = await Promise.all([
     supabase
       .from("study_progress")
       .select("area, correct_answers, total_answers, score")
@@ -18,6 +18,12 @@ export default async function Page() {
     supabase
       .from("question_attempts")
       .select("id, question_id, is_correct, elapsed_seconds, created_at")
+      .eq("user_id", user.id)
+      .order("created_at", { ascending: false })
+      .limit(20),
+    supabase
+      .from("ai_question_attempts")
+      .select("id, subject, topic, is_correct, elapsed_seconds, created_at")
       .eq("user_id", user.id)
       .order("created_at", { ascending: false })
       .limit(20),
@@ -43,16 +49,25 @@ export default async function Page() {
     );
   }
 
-  const attempts = (attemptsResult.data ?? []).map((attempt) => ({
-    ...attempt,
-    question: questionById.get(attempt.question_id) ?? null,
-  }));
+  const attempts = [
+    ...(attemptsResult.data ?? []).map((attempt) => ({
+      ...attempt,
+      question: questionById.get(attempt.question_id) ?? null,
+    })),
+    ...(generatedAttemptsResult.data ?? []).map((attempt) => ({
+      ...attempt,
+      question_id: attempt.id,
+      question: { subject: attempt.subject, topic: attempt.topic },
+    })),
+  ]
+    .sort((left, right) => right.created_at.localeCompare(left.created_at))
+    .slice(0, 20);
 
   return (
     <PerformanceOverview
       progress={progressResult.data ?? []}
       attempts={attempts}
-      hasLoadError={Boolean(progressResult.error || attemptsResult.error)}
+      hasLoadError={Boolean(progressResult.error || attemptsResult.error || generatedAttemptsResult.error)}
     />
   );
 }

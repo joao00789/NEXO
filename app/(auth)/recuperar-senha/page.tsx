@@ -14,7 +14,7 @@ export default function RecuperarSenhaPage() {
       description="Informe seu e-mail e enviaremos um link de recuperação."
       submitLabel="Enviar link"
       emailLabel="E-mail"
-      passwordLabel="Senha"
+      showPasswordField={false}
       footer={
         <p className="text-muted-foreground mt-4 text-center text-sm">
           Lembrou a senha?{" "}

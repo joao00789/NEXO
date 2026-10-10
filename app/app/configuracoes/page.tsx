@@ -1,15 +1,26 @@
 import type { Metadata } from "next";
-import { KeyRound, ShieldCheck, UserRound } from "lucide-react";
+import { KeyRound, ShieldCheck, UserRound, UserRoundX } from "lucide-react";
 
+import { DeleteAccountForm } from "@/components/auth/delete-account-form";
+import { PasswordSettingsForm } from "@/components/auth/password-settings-form";
 import { ProfileSettingsForm } from "@/components/auth/profile-settings-form";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { updateProfileNameAction } from "@/lib/auth/actions";
+import {
+  deleteAccountAction,
+  updatePasswordAction,
+  updateProfileNameAction,
+} from "@/lib/auth/actions";
 import { requireUserSession } from "@/lib/auth/session";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 export const metadata: Metadata = { title: "Configurações" };
 
-export default async function Page() {
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: Promise<{ "password-reset"?: string }>;
+}) {
+  const search = await searchParams;
   const user = await requireUserSession();
   const supabase = await createSupabaseServerClient();
   const { data: profile } = await supabase
@@ -61,14 +72,34 @@ export default async function Page() {
             <ShieldCheck aria-hidden="true" className="size-4" /> Segurança
           </CardTitle>
         </CardHeader>
-        <CardContent className="flex items-start gap-3">
-          <KeyRound aria-hidden="true" className="text-muted-foreground mt-0.5 size-4 shrink-0" />
-          <div>
-            <p className="text-sm font-medium">Redefinição de senha</p>
-            <p className="text-muted-foreground mt-1 text-sm">
-              Para trocar sua senha, saia da conta e use “Esqueci minha senha” na tela de entrada.
+        <CardContent className="flex flex-col gap-4">
+          {search["password-reset"] === "1" ? (
+            <p role="status" className="text-sm text-emerald-400">
+              Link confirmado. Defina sua nova senha abaixo.
             </p>
+          ) : null}
+          <div className="flex items-start gap-3">
+            <KeyRound aria-hidden="true" className="text-muted-foreground mt-0.5 size-4 shrink-0" />
+            <div>
+              <p className="text-sm font-medium">Redefinição de senha</p>
+              <p className="text-muted-foreground mt-1 text-sm">
+                Crie uma nova senha para sua conta. Também é possível solicitar
+                um link de recuperação pelo e-mail.
+              </p>
+            </div>
           </div>
+          <PasswordSettingsForm action={updatePasswordAction} />
+        </CardContent>
+      </Card>
+
+      <Card className="border-destructive/40">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2 text-base text-destructive">
+            <UserRoundX aria-hidden="true" className="size-4" /> Excluir conta
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <DeleteAccountForm action={deleteAccountAction} />
         </CardContent>
       </Card>
     </div>

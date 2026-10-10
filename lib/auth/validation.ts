@@ -26,6 +26,19 @@ export const resetPasswordSchema = z.object({
   email: z.string().trim().email("Informe um e-mail válido."),
 });
 
+export const updatePasswordSchema = z
+  .object({
+    password: z
+      .string()
+      .min(8, "A senha deve ter pelo menos 8 caracteres.")
+      .max(72, "A senha deve ter no máximo 72 caracteres."),
+    confirmPassword: z.string(),
+  })
+  .refine((value) => value.password === value.confirmPassword, {
+    message: "As senhas não coincidem.",
+    path: ["confirmPassword"],
+  });
+
 export function getSignUpErrorMessage(code: string | null | undefined) {
   switch (code) {
     case "user_already_exists":
@@ -47,3 +60,4 @@ export function getSignUpErrorMessage(code: string | null | undefined) {
 export type SignUpInput = z.infer<typeof signUpSchema>;
 export type SignInInput = z.infer<typeof signInSchema>;
 export type ResetPasswordInput = z.infer<typeof resetPasswordSchema>;
+export type UpdatePasswordInput = z.infer<typeof updatePasswordSchema>;

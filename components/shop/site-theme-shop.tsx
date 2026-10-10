@@ -131,7 +131,7 @@ export function SiteThemeShop({
                 </div>
                 <CardDescription>{theme.description}</CardDescription>
               </CardHeader>
-              <CardContent className="flex items-center justify-between gap-3">
+              <CardContent className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <span className="flex items-center gap-1.5 text-sm font-medium">
                   {owned ? <Sparkles aria-hidden="true" className="size-4 text-primary" /> : <Coins aria-hidden="true" className="size-4 text-amber-300" />}
                   {owned ? "Na coleção" : theme.price}
@@ -143,6 +143,7 @@ export function SiteThemeShop({
                     variant={active ? "secondary" : "default"}
                     disabled={active || pending}
                     onClick={() => activate(theme.id)}
+                    className="w-full sm:w-auto"
                   >
                     {pendingId === theme.id ? <LoaderCircle className="animate-spin" /> : active ? "Em uso" : "Ativar tema"}
                   </Button>
@@ -153,6 +154,7 @@ export function SiteThemeShop({
                     disabled={pending || coins < theme.price}
                     onClick={() => buy(theme)}
                     title={coins < theme.price ? "Responda questões para ganhar NEXO Coins." : undefined}
+                    className="w-full sm:w-auto"
                   >
                     {pendingId === theme.id ? <><LoaderCircle className="animate-spin" /> Comprando…</> : coins < theme.price ? "Saldo insuficiente" : "Comprar"}
                   </Button>

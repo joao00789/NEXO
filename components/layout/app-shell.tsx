@@ -58,7 +58,11 @@ export function AppShell({
                 >
                   <Menu />
                 </SheetTrigger>
-                <SheetContent side="left" className="nexo-sidebar w-72 p-0">
+                <SheetContent
+                  side="left"
+                  data-theme={activeTheme ?? "default"}
+                  className="nexo-sidebar w-72 p-0"
+                >
                   <SheetHeader className="border-border border-b p-4">
                     <SheetTitle>
                       <Link href="/" aria-label="NEXO — início">

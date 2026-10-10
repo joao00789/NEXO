@@ -19,12 +19,13 @@ test("validates the available site theme catalog", () => {
   ]);
 
   assert.equal(parsed.success, true);
-  assert.equal(SITE_THEME_IDS.length, 8);
+  assert.equal(SITE_THEME_IDS.length, 12);
 });
 
 test("rejects unknown themes and permits restoring the default theme", () => {
   assert.equal(activeThemeInputSchema.safeParse("default").success, true);
   assert.equal(activeThemeInputSchema.safeParse("ocean").success, true);
+  assert.equal(activeThemeInputSchema.safeParse("obsidian").success, true);
   assert.equal(activeThemeInputSchema.safeParse("unknown").success, false);
 });
 

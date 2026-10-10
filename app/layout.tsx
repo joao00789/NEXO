@@ -15,12 +15,28 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://nexo-pearl-pi.vercel.app"),
   title: {
     default: "NEXO — Seu caminho até o ENEM",
     template: "%s · NEXO",
   },
   description:
     "Plataforma gratuita e gamificada de preparação para o ENEM com estudo personalizado.",
+  openGraph: {
+    type: "website",
+    locale: "pt_BR",
+    siteName: "NEXO",
+    title: "NEXO — Seu caminho até o ENEM",
+    description:
+      "Estude para o ENEM de forma gratuita, personalizada e gamificada.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "NEXO — Seu caminho até o ENEM",
+    description:
+      "Estude para o ENEM de forma gratuita, personalizada e gamificada.",
+    images: ["/opengraph-image"],
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

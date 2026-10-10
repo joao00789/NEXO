@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import { z } from "zod";
 
 import { ContentLibrary } from "@/components/content/content-library";
+import { AIStudyBuilder } from "@/components/content/ai-study-builder";
 import { studyContents } from "@/lib/content/catalog";
 
 export const metadata: Metadata = { title: "Conteúdos" };
+export const maxDuration = 60;
 
 const searchSchema = z.string().trim().max(80).catch("");
 
@@ -34,5 +36,10 @@ export default async function Page({
       )
     : studyContents;
 
-  return <ContentLibrary contents={contents} query={query} />;
+  return (
+    <div className="space-y-8">
+      <AIStudyBuilder />
+      <ContentLibrary contents={contents} query={query} />
+    </div>
+  );
 }

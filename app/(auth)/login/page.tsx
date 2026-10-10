@@ -10,7 +10,7 @@ export const metadata: Metadata = { title: "Entrar" };
 async function LoginForm({
   searchParams,
 }: {
-  searchParams: Promise<{ error?: string }>;
+  searchParams: Promise<{ error?: string; "account-deleted"?: string }>;
 }) {
   const search = await searchParams;
 
@@ -20,7 +20,13 @@ async function LoginForm({
       title="Entrar"
       description="Acesse sua conta para continuar estudando."
       submitLabel="Entrar"
+      showForgotPasswordLink
       initialError={search.error === "google" ? "Não foi possível entrar com Google. Verifique a configuração do provedor e tente novamente." : undefined}
+      initialSuccess={
+        search["account-deleted"] === "1"
+          ? "Sua conta foi excluída com sucesso."
+          : undefined
+      }
       footer={
         <p className="text-muted-foreground mt-4 text-center text-sm">
           Não tem conta?{" "}
@@ -36,7 +42,7 @@ async function LoginForm({
 export default function LoginPage({
   searchParams,
 }: {
-  searchParams: Promise<{ error?: string }>;
+  searchParams: Promise<{ error?: string; "account-deleted"?: string }>;
 }) {
   return (
     <Suspense

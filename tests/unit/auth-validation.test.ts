@@ -6,6 +6,7 @@ import {
   resetPasswordSchema,
   signInSchema,
   signUpSchema,
+  updatePasswordSchema,
 } from "@/lib/auth/validation";
 
 test("signUpSchema rejeita nome muito curto", () => {
@@ -57,4 +58,21 @@ test("resetPasswordSchema rejeita e-mail inválido", () => {
   const result = resetPasswordSchema.safeParse({ email: "email-invalido" });
 
   assert.equal(result.success, false);
+});
+
+test("updatePasswordSchema exige confirmação igual à nova senha", () => {
+  assert.equal(
+    updatePasswordSchema.safeParse({
+      password: "senha-segura",
+      confirmPassword: "senha-diferente",
+    }).success,
+    false,
+  );
+  assert.equal(
+    updatePasswordSchema.safeParse({
+      password: "senha-segura",
+      confirmPassword: "senha-segura",
+    }).success,
+    true,
+  );
 });

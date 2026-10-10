@@ -13,18 +13,32 @@ export default async function Page() {
   const now = new Date();
   const today = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate())).toISOString();
   const week = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() - ((now.getUTCDay() + 6) % 7))).toISOString();
-  const [{ data: missionRows }, { data: todayAttempts }, { data: weekAttempts }, { data: mathAttempts }, { data: leaderboard }] = await Promise.all([
+  const [
+    { data: missionRows },
+    { data: todayAttempts },
+    { data: weekAttempts },
+    { data: mathAttempts },
+    { data: generatedTodayAttempts },
+    { data: generatedWeekAttempts },
+    { data: generatedMathAttempts },
+    { data: leaderboard },
+  ] = await Promise.all([
     supabase.from("missions").select("id, title, description, mission_type, target_count, reward_xp, reward_coins, cadence").eq("is_active", true).order("cadence"),
     supabase.from("question_attempts").select("question_id").eq("user_id", user.id).gte("created_at", today),
     supabase.from("question_attempts").select("question_id").eq("user_id", user.id).gte("created_at", week),
     supabase.from("question_attempts").select("question_id, questions!inner(area)").eq("user_id", user.id).gte("created_at", today).eq("questions.area", "matematica"),
+    supabase.from("ai_question_attempts").select("id").eq("user_id", user.id).gte("created_at", today),
+    supabase.from("ai_question_attempts").select("id").eq("user_id", user.id).gte("created_at", week),
+    supabase.from("ai_question_attempts").select("id").eq("user_id", user.id).eq("area", "matematica").gte("created_at", today),
     supabase.rpc("get_study_leaderboard", { p_limit: 20 }),
   ]);
   const missions: MissionItem[] = (missionRows ?? []).map((mission) => {
     const distinctCount = (rows: { question_id: string }[] | null) => new Set((rows ?? []).map((row) => row.question_id)).size;
-    const progress = mission.id === "daily-questions-5" ? distinctCount(todayAttempts)
-      : mission.id === "daily-math-3" ? distinctCount(mathAttempts)
-        : mission.id === "weekly-questions-25" ? distinctCount(weekAttempts) : 0;
+    const uniqueCombinedCount = (rows: { question_id: string }[] | null, generated: { id: string }[] | null) =>
+      distinctCount(rows) + new Set((generated ?? []).map((row) => row.id)).size;
+    const progress = mission.id === "daily-questions-5" ? uniqueCombinedCount(todayAttempts, generatedTodayAttempts)
+      : mission.id === "daily-math-3" ? uniqueCombinedCount(mathAttempts, generatedMathAttempts)
+        : mission.id === "weekly-questions-25" ? uniqueCombinedCount(weekAttempts, generatedWeekAttempts) : 0;
     return { ...mission, mission_type: mission.mission_type as MissionItem["mission_type"], cadence: mission.cadence as MissionItem["cadence"], progress };
   });
   const leaderboardSchema = z.array(z.object({ rank: z.coerce.number(), user_id: z.uuid(), display_name: z.string(), xp: z.number().int(), level: z.number().int() }));

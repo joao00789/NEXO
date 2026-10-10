@@ -40,13 +40,27 @@ export default async function DashboardPage() {
     .eq("user_id", user.id);
   // eslint-disable-next-line react-hooks/purity
   const activitySince = new Date(Date.now() - 370 * 24 * 60 * 60 * 1000).toISOString();
-  const { data: attempts, error: attemptsError } = await supabase
-    .from("question_attempts")
-    .select("created_at")
-    .eq("user_id", user.id)
-    .gte("created_at", activitySince)
-    .order("created_at", { ascending: false })
-    .limit(5000);
+  const [attemptsResult, generatedAttemptsResult] = await Promise.all([
+    supabase
+      .from("question_attempts")
+      .select("created_at")
+      .eq("user_id", user.id)
+      .gte("created_at", activitySince)
+      .order("created_at", { ascending: false })
+      .limit(5000),
+    supabase
+      .from("ai_question_attempts")
+      .select("created_at")
+      .eq("user_id", user.id)
+      .gte("created_at", activitySince)
+      .order("created_at", { ascending: false })
+      .limit(5000),
+  ]);
+  const attempts = [
+    ...(attemptsResult.data ?? []),
+    ...(generatedAttemptsResult.data ?? []),
+  ];
+  const attemptsError = attemptsResult.error ?? generatedAttemptsResult.error;
 
   const dateKey = (date: Date) => {
     const parts = new Intl.DateTimeFormat("en-CA", {

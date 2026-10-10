@@ -17,7 +17,10 @@ export function AuthForm({
   passwordLabel = "Senha",
   nameField = false,
   nameLabel = "Nome",
+  showPasswordField = true,
+  showForgotPasswordLink = false,
   initialError,
+  initialSuccess,
   footer,
 }: {
   action: (state: unknown, formData: FormData) => Promise<AuthActionState>;
@@ -28,7 +31,10 @@ export function AuthForm({
   passwordLabel?: string;
   nameField?: boolean;
   nameLabel?: string;
+  showPasswordField?: boolean;
+  showForgotPasswordLink?: boolean;
   initialError?: string;
+  initialSuccess?: string;
   footer: React.ReactNode;
 }) {
   const [state, formAction, isPending] = useActionState(action, {});
@@ -67,18 +73,28 @@ export function AuthForm({
           />
         </div>
 
-        <div className="flex flex-col gap-2">
-          <Label htmlFor="password">{passwordLabel}</Label>
-          <Input
-            id="password"
-            name="password"
-            type="password"
-            autoComplete={nameField ? "new-password" : "current-password"}
-            placeholder={nameField ? "Mínimo de 8 caracteres" : "••••••••"}
-            minLength={nameField ? 8 : undefined}
-            required
-          />
-        </div>
+        {showPasswordField ? (
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="password">{passwordLabel}</Label>
+            <Input
+              id="password"
+              name="password"
+              type="password"
+              autoComplete={nameField ? "new-password" : "current-password"}
+              placeholder={nameField ? "Mínimo de 8 caracteres" : "••••••••"}
+              minLength={nameField ? 8 : undefined}
+              required
+            />
+            {showForgotPasswordLink ? (
+              <Link
+                href="/recuperar-senha"
+                className="text-primary self-end text-sm font-medium hover:underline"
+              >
+                Esqueci minha senha
+              </Link>
+            ) : null}
+          </div>
+        ) : null}
 
         {state.error || initialError ? (
           <p role="alert" className="text-destructive text-sm">
@@ -89,6 +105,11 @@ export function AuthForm({
         {state.success ? (
           <p role="status" className="text-emerald-400 text-sm">
             {state.success}
+          </p>
+        ) : null}
+        {initialSuccess ? (
+          <p role="status" className="text-emerald-400 text-sm">
+            {initialSuccess}
           </p>
         ) : null}
 
