@@ -3,6 +3,7 @@ import test from "node:test";
 
 import {
   activeThemeInputSchema,
+  siteThemeInventorySchema,
   siteThemesSchema,
 } from "@/lib/themes/schemas";
 
@@ -23,4 +24,15 @@ test("rejects unknown themes and permits restoring the default theme", () => {
   assert.equal(activeThemeInputSchema.safeParse("default").success, true);
   assert.equal(activeThemeInputSchema.safeParse("nebula").success, true);
   assert.equal(activeThemeInputSchema.safeParse("unknown").success, false);
+});
+
+test("accepts Supabase inventory timestamps with a UTC offset", () => {
+  const parsed = siteThemeInventorySchema.safeParse([
+    {
+      theme_id: "aurora",
+      acquired_at: "2026-10-10T17:54:40.499783+00:00",
+    },
+  ]);
+
+  assert.equal(parsed.success, true);
 });

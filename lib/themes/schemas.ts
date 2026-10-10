@@ -14,7 +14,7 @@ export const siteThemesSchema = z.array(siteThemeSchema);
 export const siteThemeInventorySchema = z.array(
   z.object({
     theme_id: z.enum(SITE_THEME_IDS),
-    acquired_at: z.iso.datetime(),
+    acquired_at: z.iso.datetime({ offset: true }),
   }),
 );
 
