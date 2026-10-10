@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Camera } from "lucide-react";
 
 import { Logo } from "@/components/brand/logo";
 
@@ -21,6 +22,17 @@ const columns = [
   },
 ];
 
+const socialLinks = [
+  {
+    href: "https://www.instagram.com/plata_nexo?psln=MWJkdDhwb2F5Nm96bg==",
+    label: "Instagram do NEXO",
+  },
+  {
+    href: "https://www.instagram.com/joao_czs_?vrfl=ajN4dzNreHBxaHVi",
+    label: "Instagram do criador",
+  },
+];
+
 export function SiteFooter() {
   return (
     <footer className="border-border bg-surface border-t">
@@ -33,7 +45,11 @@ export function SiteFooter() {
         </div>
 
         {columns.map((column) => (
-          <nav key={column.title} aria-label={column.title} className="flex flex-col gap-2">
+          <nav
+            key={column.title}
+            aria-label={column.title}
+            className="flex flex-col gap-2"
+          >
             <span className="text-sm font-semibold">{column.title}</span>
             {column.links.map((link) => (
               <Link
@@ -46,6 +62,22 @@ export function SiteFooter() {
             ))}
           </nav>
         ))}
+
+        <nav aria-label="Redes sociais" className="flex flex-col gap-2">
+          <span className="text-sm font-semibold">Redes sociais</span>
+          {socialLinks.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-muted-foreground hover:text-primary inline-flex items-center gap-2 text-sm transition-colors"
+            >
+              <Camera aria-hidden="true" className="size-4" />
+              {link.label}
+            </a>
+          ))}
+        </nav>
       </div>
       <div className="border-border text-muted-foreground border-t px-4 py-4 text-center text-xs sm:px-6">
         © {currentYear} NEXO. Plataforma gratuita de estudo.
