@@ -5,7 +5,6 @@ import { Bell, LogOut, Menu, Search, Sparkles } from "lucide-react";
 
 import { Logo } from "@/components/brand/logo";
 import { NavList } from "@/components/layout/nav-list";
-import { SiteThemeEffectsProvider } from "@/components/layout/site-theme-effects";
 import { Button } from "@/components/ui/button";
 import { signOutAction } from "@/lib/auth/actions";
 import {
@@ -29,11 +28,10 @@ export function AppShell({
   const accountInitial = accountName.charAt(0).toLocaleUpperCase("pt-BR");
 
   return (
-    <SiteThemeEffectsProvider theme={activeTheme}>
-      <div
-        className="nexo-shell text-foreground min-h-screen"
-        data-theme={activeTheme ?? "default"}
-      >
+    <div
+      className="nexo-shell text-foreground min-h-screen"
+      data-theme={activeTheme ?? "default"}
+    >
         <div className="mx-auto flex min-h-screen max-w-[1800px]">
           <aside className="nexo-sidebar border-border fixed inset-y-0 left-0 z-30 hidden w-72 flex-col border-r px-4 py-5 lg:flex">
             <div className="mb-5 flex h-14 items-center rounded-2xl border border-white/10 bg-white/5 px-3">
@@ -131,12 +129,11 @@ export function AppShell({
               </div>
             </header>
 
-            <main className="nexo-themed-content w-full flex-1 overflow-x-clip px-4 py-6 sm:px-6 lg:px-8">
+            <main className="nexo-themed-content w-full flex-1 px-4 py-6 sm:px-6 lg:px-8">
               <div className="mx-auto max-w-[1600px]">{children}</div>
             </main>
           </div>
         </div>
-      </div>
-    </SiteThemeEffectsProvider>
+    </div>
   );
 }

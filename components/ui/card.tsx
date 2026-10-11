@@ -1,24 +1,12 @@
-"use client";
-
 import * as React from "react";
 import { cn } from "cn";
-import { FlameWrap } from "@/components/canvasui/FlameWrap";
-import { useSiteThemeEffects } from "@/components/layout/site-theme-effects";
-
-const flameThemeColors: Record<string, [number, number, number]> = {
-  volcano: [1, 0.24, 0.04],
-  crimson: [1, 0.12, 0.22],
-  "black-rose": [1, 0.12, 0.5],
-};
 
 function Card({
   className,
   size = "default",
   ...props
 }: React.ComponentProps<"div"> & { size?: "default" | "sm" }) {
-  const theme = useSiteThemeEffects();
-  const flameColor = flameThemeColors[theme ?? ""];
-  const card = (
+  return (
     <div
       data-slot="card"
       data-size={size}
@@ -28,37 +16,6 @@ function Card({
       )}
       {...props}
     />
-  );
-
-  if (!flameColor) return card;
-
-  return (
-    <FlameWrap
-      className="nexo-flame-card"
-      captureContent={false}
-      color={flameColor}
-      intensity={0.9}
-      height={52}
-      spread={7}
-      radius={12}
-      speed={0.7}
-      scale={0.52}
-      turbulence={0.62}
-      turbulenceScale={0.65}
-      turbulenceReach={18}
-      sparks={0.85}
-      sparkSize={0.4}
-      sparkDensity={0.7}
-      sparkSpeed={0.75}
-      rim={2.1}
-      melt={1.5}
-      distortion={3}
-      smoke={0.25}
-      ember={1.2}
-      scorch={0}
-    >
-      {card}
-    </FlameWrap>
   );
 }
 
