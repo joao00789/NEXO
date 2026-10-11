@@ -7,11 +7,14 @@ import { useState, useTransition } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Liquid } from "@/components/canvasui/Liquid";
 import {
   purchaseSiteThemeAction,
   setActiveSiteThemeAction,
 } from "@/lib/themes/actions";
 import { siteThemePreviews, type SiteThemeId } from "@/lib/themes/catalog";
+
+const FIRE_THEME_IDS = new Set<SiteThemeId>(["volcano", "crimson", "black-rose"]);
 
 type ShopTheme = {
   id: SiteThemeId;
@@ -35,6 +38,7 @@ export function SiteThemeShop({
   const [coins, setCoins] = useState(initialCoins);
   const [ownedThemeIds, setOwnedThemeIds] = useState(() => new Set(initialOwnedThemeIds));
   const [activeThemeId, setActiveThemeId] = useState(initialActiveThemeId);
+  const [hoveredPreviewId, setHoveredPreviewId] = useState<SiteThemeId | null>(null);
   const [pendingId, setPendingId] = useState<string | null>(null);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -99,28 +103,56 @@ export function SiteThemeShop({
           const owned = ownedThemeIds.has(theme.id);
           const active = activeThemeId === theme.id;
           const preview = siteThemePreviews[theme.id];
+          const hasFireEffect = FIRE_THEME_IDS.has(theme.id);
+          const showLiquid = theme.id === "volcano" && hoveredPreviewId === theme.id;
+          const previewContent = (
+            <div
+              aria-hidden="true"
+              className="relative z-10 w-full rounded-xl border border-white/10 bg-black/20 p-3 backdrop-blur-sm"
+            >
+              <div className="flex items-center gap-2">
+                <span className="size-2 rounded-full" style={{ backgroundColor: preview.primary }} />
+                <span className="h-2 w-16 rounded-full bg-white/45" />
+                <span className="ml-auto h-2 w-8 rounded-full" style={{ backgroundColor: `${preview.primary}99` }} />
+              </div>
+              <div className="mt-3 grid grid-cols-[1fr_2fr] gap-2">
+                <span className="h-7 rounded-md border border-white/10 bg-white/5" />
+                <span className="h-7 rounded-md" style={{ backgroundColor: `${preview.primary}30` }} />
+              </div>
+            </div>
+          );
 
           return (
             <Card key={theme.id} className="overflow-hidden border-border bg-card">
               <div
-                className="relative flex h-36 items-end overflow-hidden p-4"
+                className={`relative flex h-36 items-end overflow-hidden p-4 ${hasFireEffect ? "nexo-fire-preview" : ""}`}
                 data-theme-preview={theme.id}
                 style={{
                   background: `radial-gradient(circle at 85% 10%, ${preview.glow}55, transparent 45%), ${preview.surface}`,
                 }}
+                onPointerEnter={() => {
+                  if (theme.id === "volcano") setHoveredPreviewId(theme.id);
+                }}
+                onPointerLeave={() => {
+                  if (theme.id === "volcano") setHoveredPreviewId(null);
+                }}
               >
-                <div className="relative z-10 w-full rounded-xl border border-white/10 bg-black/20 p-3 backdrop-blur-sm">
-                  <div className="flex items-center gap-2">
-                    <span className="size-2 rounded-full" style={{ backgroundColor: preview.primary }} />
-                    <span className="h-2 w-16 rounded-full bg-white/45" />
-                    <span className="ml-auto h-2 w-8 rounded-full" style={{ backgroundColor: `${preview.primary}99` }} />
-                  </div>
-                  <div className="mt-3 grid grid-cols-[1fr_2fr] gap-2">
-                    <span className="h-7 rounded-md border border-white/10 bg-white/5" />
-                    <span className="h-7 rounded-md" style={{ backgroundColor: `${preview.primary}30` }} />
-                  </div>
-                </div>
-                <div className="absolute right-4 top-4 z-10 rounded-full border border-white/10 bg-black/20 p-2 text-white">
+                {showLiquid ? (
+                  <Liquid
+                    className="absolute inset-0 z-10"
+                    color={[1, 0.22, 0.04]}
+                    simResolution={64}
+                    dyeResolution={256}
+                    intensity={1.4}
+                    distortion={0.28}
+                    blend={3}
+                  >
+                    <div className="flex h-full w-full items-end p-4">{previewContent}</div>
+                  </Liquid>
+                ) : (
+                  previewContent
+                )}
+                <div className="absolute right-4 top-4 z-20 rounded-full border border-white/10 bg-black/20 p-2 text-white">
                   <Palette aria-hidden="true" className="size-4" />
                 </div>
               </div>
