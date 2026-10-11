@@ -879,40 +879,6 @@
 [data-theme-preview="black-emerald"] { --preview-glow: #4de6a1; }
 [data-theme-preview="black-rose"] { --preview-glow: #ff5da2; }
 
-.nexo-fire-card::before {
-  position: absolute;
-  z-index: 0;
-  pointer-events: none;
-  content: "";
-  top: -34px;
-  right: 12px;
-  left: 12px;
-  height: 50px;
-  opacity: 0.8;
-  background: linear-gradient(0deg, #1d55d9 0%, #3985ff 36%, #96c8ff 72%, #e5f4ff 100%);
-  clip-path: polygon(
-    0 100%, 0 64%, 3% 49%, 6% 78%, 9% 20%, 12% 72%, 16% 0%,
-    19% 75%, 23% 28%, 27% 72%, 30% 12%, 34% 78%, 38% 30%,
-    42% 70%, 46% 5%, 50% 76%, 54% 24%, 58% 71%, 62% 8%,
-    66% 78%, 70% 28%, 74% 72%, 78% 4%, 82% 76%, 86% 26%,
-    90% 73%, 94% 8%, 97% 68%, 100% 52%, 100% 100%
-  );
-  filter: drop-shadow(0 0 5px #2e6bff) drop-shadow(0 0 14px #2e6bff99);
-  transform-origin: bottom;
-  animation: nexo-card-flames 1.8s ease-in-out infinite alternate;
-}
-
-@keyframes nexo-card-flames {
-  from {
-    opacity: 0.6;
-    transform: scaleY(0.82) translateX(-1px);
-  }
-  to {
-    opacity: 0.9;
-    transform: scaleY(1) translateX(1px);
-  }
-}
-
 @keyframes nexo-black-sheen {
   from { background-position: -120% 0, 0% 50%; }
   to { background-position: 120% 0, 100% 50%; }

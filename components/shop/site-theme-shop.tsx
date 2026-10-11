@@ -7,14 +7,11 @@ import { useState, useTransition } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { FlameWrap } from "@/components/canvasui/FlameWrap";
 import {
   purchaseSiteThemeAction,
   setActiveSiteThemeAction,
 } from "@/lib/themes/actions";
 import { siteThemePreviews, type SiteThemeId } from "@/lib/themes/catalog";
-
-const FIRE_THEME_IDS = new Set<SiteThemeId>(["volcano", "crimson", "black-rose"]);
 
 type ShopTheme = {
   id: SiteThemeId;
@@ -102,7 +99,6 @@ export function SiteThemeShop({
           const owned = ownedThemeIds.has(theme.id);
           const active = activeThemeId === theme.id;
           const preview = siteThemePreviews[theme.id];
-          const hasFireEffect = FIRE_THEME_IDS.has(theme.id);
           const previewContent = (
             <div
               aria-hidden="true"
@@ -121,10 +117,7 @@ export function SiteThemeShop({
           );
 
           return (
-            <Card
-              key={theme.id}
-              className={`border-border bg-card ${hasFireEffect ? "nexo-fire-card relative isolate overflow-visible" : "overflow-hidden"}`}
-            >
+            <Card key={theme.id} className="overflow-hidden border-border bg-card">
               <div
                 className="relative flex h-36 items-end overflow-hidden rounded-t-xl p-4"
                 data-theme-preview={theme.id}
@@ -137,14 +130,14 @@ export function SiteThemeShop({
                   <Palette aria-hidden="true" className="size-4" />
                 </div>
               </div>
-              <CardHeader className={`gap-2 ${hasFireEffect ? "relative z-10" : ""}`}>
+              <CardHeader className="gap-2">
                 <div className="flex items-center justify-between gap-2">
                   <CardTitle className="text-base">{theme.name}</CardTitle>
                   {active ? <Badge className="gap-1"><Check aria-hidden="true" className="size-3" /> Em uso</Badge> : null}
                 </div>
                 <CardDescription>{theme.description}</CardDescription>
               </CardHeader>
-              <CardContent className={`flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between ${hasFireEffect ? "relative z-10" : ""}`}>
+              <CardContent className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <span className="flex items-center gap-1.5 text-sm font-medium">
                   {owned ? <Sparkles aria-hidden="true" className="size-4 text-primary" /> : <Coins aria-hidden="true" className="size-4 text-amber-300" />}
                   {owned ? "Na coleção" : theme.price}
@@ -173,30 +166,6 @@ export function SiteThemeShop({
                   </Button>
                 )}
               </CardContent>
-              {hasFireEffect ? (
-                <FlameWrap
-                  className="pointer-events-none absolute inset-0 z-20"
-                  style={{ position: "absolute", inset: 0, pointerEvents: "none" }}
-                  color={[0.31, 0.54, 1]}
-                  intensity={0.75}
-                  height={58}
-                  spread={10}
-                  radius={18}
-                  speed={0.65}
-                  scale={0.72}
-                  turbulence={0.58}
-                  sparks={0.75}
-                  sparkDensity={0.7}
-                  rim={2}
-                  melt={0}
-                  distortion={2}
-                  smoke={0.25}
-                  ember={0.8}
-                  scorch={0}
-                >
-                  <div className="size-full rounded-[inherit]" />
-                </FlameWrap>
-              ) : null}
             </Card>
           );
         })}
