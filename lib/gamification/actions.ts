@@ -15,11 +15,19 @@ export async function claimMissionAction(rawId: unknown) {
   const supabase = await createSupabaseServerClient();
   const { data, error } = await supabase.rpc("claim_question_mission", { p_mission_id: missionId.data });
   if (error) {
+    console.error("Mission reward claim failed.", {
+      code: error.code,
+      message: error.message,
+      missionId: missionId.data,
+    });
     const message = error.message.includes("ainda não concluída") ? "Ainda faltam questões para concluir esta missão." : error.message.includes("já resgatada") ? "Você já resgatou esta recompensa." : "Não foi possível resgatar a missão.";
     return { error: message };
   }
   const result = z.object({ xp: z.number().int(), coins: z.number().int() }).safeParse(data);
-  if (!result.success) return { error: "A missão foi processada, mas não foi possível confirmar a recompensa." };
+  if (!result.success) {
+    console.error("Mission reward response was invalid.", { missionId: missionId.data });
+    return { error: "A missão foi processada, mas não foi possível confirmar a recompensa." };
+  }
   revalidatePath("/app/missoes");
   revalidatePath("/app");
   return result.data;
