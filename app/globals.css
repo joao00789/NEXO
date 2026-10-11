@@ -879,31 +879,37 @@
 [data-theme-preview="black-emerald"] { --preview-glow: #4de6a1; }
 [data-theme-preview="black-rose"] { --preview-glow: #ff5da2; }
 
-.nexo-fire-preview::after {
+.nexo-fire-card::before {
   position: absolute;
-  z-index: 1;
+  z-index: 0;
   pointer-events: none;
   content: "";
-  inset: 0;
-  opacity: 0.78;
-  mix-blend-mode: screen;
-  background-image:
-    radial-gradient(circle, color-mix(in srgb, var(--preview-glow) 75%, #fff4c2) 0 1px, transparent 2px),
-    radial-gradient(circle, color-mix(in srgb, var(--preview-glow) 88%, #ffffff) 0 1px, transparent 2px),
-    radial-gradient(ellipse at 50% 110%, color-mix(in srgb, var(--preview-glow) 34%, transparent), transparent 64%);
-  background-size: 54px 72px, 83px 96px, 100% 100%;
-  background-position: 0 120px, 30px 145px, 50% 100%;
-  animation: nexo-card-embers 5.5s linear infinite;
+  top: -34px;
+  right: 12px;
+  left: 12px;
+  height: 50px;
+  opacity: 0.8;
+  background: linear-gradient(0deg, #1d55d9 0%, #3985ff 36%, #96c8ff 72%, #e5f4ff 100%);
+  clip-path: polygon(
+    0 100%, 0 64%, 3% 49%, 6% 78%, 9% 20%, 12% 72%, 16% 0%,
+    19% 75%, 23% 28%, 27% 72%, 30% 12%, 34% 78%, 38% 30%,
+    42% 70%, 46% 5%, 50% 76%, 54% 24%, 58% 71%, 62% 8%,
+    66% 78%, 70% 28%, 74% 72%, 78% 4%, 82% 76%, 86% 26%,
+    90% 73%, 94% 8%, 97% 68%, 100% 52%, 100% 100%
+  );
+  filter: drop-shadow(0 0 5px #2e6bff) drop-shadow(0 0 14px #2e6bff99);
+  transform-origin: bottom;
+  animation: nexo-card-flames 1.8s ease-in-out infinite alternate;
 }
 
-@keyframes nexo-card-embers {
+@keyframes nexo-card-flames {
   from {
-    background-position: 0 120px, 30px 145px, 50% 100%;
-    opacity: 0.5;
+    opacity: 0.6;
+    transform: scaleY(0.82) translateX(-1px);
   }
   to {
-    background-position: 42px -30px, -36px -20px, 50% 0%;
-    opacity: 0.85;
+    opacity: 0.9;
+    transform: scaleY(1) translateX(1px);
   }
 }
 

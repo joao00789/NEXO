@@ -7,7 +7,7 @@ import { useState, useTransition } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Liquid } from "@/components/canvasui/Liquid";
+import { FlameWrap } from "@/components/canvasui/FlameWrap";
 import {
   purchaseSiteThemeAction,
   setActiveSiteThemeAction,
@@ -38,7 +38,6 @@ export function SiteThemeShop({
   const [coins, setCoins] = useState(initialCoins);
   const [ownedThemeIds, setOwnedThemeIds] = useState(() => new Set(initialOwnedThemeIds));
   const [activeThemeId, setActiveThemeId] = useState(initialActiveThemeId);
-  const [hoveredPreviewId, setHoveredPreviewId] = useState<SiteThemeId | null>(null);
   const [pendingId, setPendingId] = useState<string | null>(null);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -104,7 +103,6 @@ export function SiteThemeShop({
           const active = activeThemeId === theme.id;
           const preview = siteThemePreviews[theme.id];
           const hasFireEffect = FIRE_THEME_IDS.has(theme.id);
-          const showLiquid = theme.id === "volcano" && hoveredPreviewId === theme.id;
           const previewContent = (
             <div
               aria-hidden="true"
@@ -123,47 +121,30 @@ export function SiteThemeShop({
           );
 
           return (
-            <Card key={theme.id} className="overflow-hidden border-border bg-card">
+            <Card
+              key={theme.id}
+              className={`border-border bg-card ${hasFireEffect ? "nexo-fire-card relative isolate overflow-visible" : "overflow-hidden"}`}
+            >
               <div
-                className={`relative flex h-36 items-end overflow-hidden p-4 ${hasFireEffect ? "nexo-fire-preview" : ""}`}
+                className="relative flex h-36 items-end overflow-hidden rounded-t-xl p-4"
                 data-theme-preview={theme.id}
                 style={{
                   background: `radial-gradient(circle at 85% 10%, ${preview.glow}55, transparent 45%), ${preview.surface}`,
                 }}
-                onPointerEnter={() => {
-                  if (theme.id === "volcano") setHoveredPreviewId(theme.id);
-                }}
-                onPointerLeave={() => {
-                  if (theme.id === "volcano") setHoveredPreviewId(null);
-                }}
               >
-                {showLiquid ? (
-                  <Liquid
-                    className="absolute inset-0 z-10"
-                    color={[1, 0.22, 0.04]}
-                    simResolution={64}
-                    dyeResolution={256}
-                    intensity={1.4}
-                    distortion={0.28}
-                    blend={3}
-                  >
-                    <div className="flex h-full w-full items-end p-4">{previewContent}</div>
-                  </Liquid>
-                ) : (
-                  previewContent
-                )}
+                {previewContent}
                 <div className="absolute right-4 top-4 z-20 rounded-full border border-white/10 bg-black/20 p-2 text-white">
                   <Palette aria-hidden="true" className="size-4" />
                 </div>
               </div>
-              <CardHeader className="gap-2">
+              <CardHeader className={`gap-2 ${hasFireEffect ? "relative z-10" : ""}`}>
                 <div className="flex items-center justify-between gap-2">
                   <CardTitle className="text-base">{theme.name}</CardTitle>
                   {active ? <Badge className="gap-1"><Check aria-hidden="true" className="size-3" /> Em uso</Badge> : null}
                 </div>
                 <CardDescription>{theme.description}</CardDescription>
               </CardHeader>
-              <CardContent className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <CardContent className={`flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between ${hasFireEffect ? "relative z-10" : ""}`}>
                 <span className="flex items-center gap-1.5 text-sm font-medium">
                   {owned ? <Sparkles aria-hidden="true" className="size-4 text-primary" /> : <Coins aria-hidden="true" className="size-4 text-amber-300" />}
                   {owned ? "Na coleção" : theme.price}
@@ -192,6 +173,30 @@ export function SiteThemeShop({
                   </Button>
                 )}
               </CardContent>
+              {hasFireEffect ? (
+                <FlameWrap
+                  className="pointer-events-none absolute inset-0 z-20"
+                  style={{ position: "absolute", inset: 0, pointerEvents: "none" }}
+                  color={[0.31, 0.54, 1]}
+                  intensity={0.75}
+                  height={58}
+                  spread={10}
+                  radius={18}
+                  speed={0.65}
+                  scale={0.72}
+                  turbulence={0.58}
+                  sparks={0.75}
+                  sparkDensity={0.7}
+                  rim={2}
+                  melt={0}
+                  distortion={2}
+                  smoke={0.25}
+                  ember={0.8}
+                  scorch={0}
+                >
+                  <div className="size-full rounded-[inherit]" />
+                </FlameWrap>
+              ) : null}
             </Card>
           );
         })}
