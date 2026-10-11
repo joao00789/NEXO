@@ -48,21 +48,27 @@ export default async function Page() {
     todayAttemptsResult.error,
     weekAttemptsResult.error,
     mathAttemptsResult.error,
-    generatedTodayAttemptsResult.error,
-    generatedWeekAttemptsResult.error,
-    generatedMathAttemptsResult.error,
     missionProgressResult.error,
   ].some(Boolean);
+  const generatedAttemptsUnavailable = Boolean(
+    generatedTodayAttemptsResult.error ||
+      generatedWeekAttemptsResult.error ||
+      generatedMathAttemptsResult.error,
+  );
   if (failedMissionData) {
     console.error("Mission board data could not be loaded.", {
       missionError: missionResult.error?.code,
       todayAttemptsError: todayAttemptsResult.error?.code,
       weekAttemptsError: weekAttemptsResult.error?.code,
       mathAttemptsError: mathAttemptsResult.error?.code,
-      generatedTodayAttemptsError: generatedTodayAttemptsResult.error?.code,
-      generatedWeekAttemptsError: generatedWeekAttemptsResult.error?.code,
-      generatedMathAttemptsError: generatedMathAttemptsResult.error?.code,
       missionProgressError: missionProgressResult.error?.code,
+    });
+  }
+  if (generatedAttemptsUnavailable) {
+    console.error("Generated question attempts could not be loaded for missions.", {
+      todayError: generatedTodayAttemptsResult.error?.code,
+      weekError: generatedWeekAttemptsResult.error?.code,
+      mathError: generatedMathAttemptsResult.error?.code,
     });
   }
   const missions: MissionItem[] = (missionRows ?? []).map((mission) => {
@@ -86,6 +92,7 @@ export default async function Page() {
   const leaders: Leader[] = parsedLeaders.success ? parsedLeaders.data : [];
   return <div className="flex flex-col gap-6">
     <header><p className="text-muted-foreground text-sm">Estude, evolua e acompanhe sua constância</p><h1 className="font-display mt-1 text-2xl font-semibold">Missões</h1></header>
+    {generatedAttemptsUnavailable && !failedMissionData ? <p role="status" className="rounded-xl border border-amber-500/30 bg-amber-500/5 p-4 text-sm text-amber-100">O progresso de questões geradas por IA está indisponível. Confira se a migration <code>20261010170000_add_ai_generated_question_attempts.sql</code> foi aplicada no Supabase; se já foi, verifique os logs do servidor.</p> : null}
     {failedMissionData ? <p role="alert" className="text-destructive text-sm">Não foi possível carregar o progresso das missões. Verifique se as migrations mais recentes do Supabase foram aplicadas.</p> : missionRows?.length ? <MissionBoard missions={missions} leaders={leaders} currentUserId={user.id} /> : <p role="alert" className="text-destructive text-sm">Não foi possível carregar as missões. Aplique as migrations do Supabase.</p>}
   </div>;
 }

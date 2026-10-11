@@ -44,10 +44,12 @@ export function PerformanceOverview({
   progress,
   attempts,
   hasLoadError,
+  hasGeneratedAttemptsError,
 }: {
   progress: AreaProgress[];
   attempts: RecentAttempt[];
   hasLoadError: boolean;
+  hasGeneratedAttemptsError: boolean;
 }) {
   const totalCorrect = progress.reduce((sum, area) => sum + area.correct_answers, 0);
   const totalAnswers = progress.reduce((sum, area) => sum + area.total_answers, 0);
@@ -88,6 +90,15 @@ export function PerformanceOverview({
         </div>
       ) : (
         <>
+          {hasGeneratedAttemptsError ? (
+            <p className="rounded-xl border border-amber-500/30 bg-amber-500/5 p-4 text-sm text-amber-100" role="status">
+              Parte do histórico de questões geradas por IA não está disponível. Confira se a migration
+              {" "}
+              <code>20261010170000_add_ai_generated_question_attempts.sql</code>
+              {" "}
+              foi aplicada no Supabase; se já foi, verifique os logs do servidor.
+            </p>
+          ) : null}
           <section
             aria-label="Resumo do desempenho"
             className="grid gap-4 sm:grid-cols-3"

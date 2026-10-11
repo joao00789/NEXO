@@ -35,6 +35,7 @@ function Card({
   return (
     <FlameWrap
       className="nexo-flame-card"
+      captureContent={false}
       color={flameColor}
       intensity={0.9}
       height={52}

@@ -41,12 +41,31 @@ export default async function Page() {
       .in("id", questionIds);
 
     if (questionsError) {
-      return <PerformanceOverview progress={[]} attempts={[]} hasLoadError />;
+      console.error("Performance question details could not be loaded.", {
+        code: questionsError.code,
+        message: questionsError.message,
+      });
+      return (
+        <PerformanceOverview
+          progress={[]}
+          attempts={[]}
+          hasLoadError
+          hasGeneratedAttemptsError={Boolean(generatedAttemptsResult.error)}
+        />
+      );
     }
 
     questionById = new Map(
       (questions ?? []).map((question) => [question.id, question]),
     );
+  }
+
+  const hasGeneratedAttemptsError = Boolean(generatedAttemptsResult.error);
+  if (hasGeneratedAttemptsError) {
+    console.error("Generated question attempts could not be loaded for performance.", {
+      code: generatedAttemptsResult.error?.code,
+      message: generatedAttemptsResult.error?.message,
+    });
   }
 
   const attempts = [
@@ -67,7 +86,8 @@ export default async function Page() {
     <PerformanceOverview
       progress={progressResult.data ?? []}
       attempts={attempts}
-      hasLoadError={Boolean(progressResult.error || attemptsResult.error || generatedAttemptsResult.error)}
+      hasLoadError={Boolean(progressResult.error || attemptsResult.error)}
+      hasGeneratedAttemptsError={hasGeneratedAttemptsError}
     />
   );
 }

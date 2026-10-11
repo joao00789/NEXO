@@ -112,6 +112,8 @@ function drawHtmlInCanvas(
 }
 
 export interface FlameWrapOptions {
+  /** Keep HTML in the normal DOM instead of drawing it inside the experimental canvas API. */
+  captureContent?: boolean;
   /** Flame color as [r, g, b] in 0-1 range. */
   color?: [number, number, number];
   /** Overall brightness of the fire (0 to 3). */
@@ -173,6 +175,7 @@ export interface FlameWrapInstance {
 }
 
 const DEFAULTS: Required<FlameWrapOptions> = {
+  captureContent: true,
   color: [0.31, 0.54, 1],
   intensity: 0.5,
   height: 170,
@@ -544,6 +547,7 @@ export function createFlameWrap(
   const sourceCtx = source.getContext("2d") as ElementImageContext | null;
   const paintable = source as PaintableCanvas;
   const htmlInCanvas = Boolean(
+    config.captureContent &&
     sourceCtx &&
     typeof sourceCtx.drawElementImage === "function" &&
     typeof paintable.requestPaint === "function",
@@ -841,7 +845,7 @@ export function FlameWrap({
     supportsHtmlInCanvas,
     () => false,
   );
-  const native = supported && !failed;
+  const native = initialOptions.captureContent !== false && supported && !failed;
 
   const reach = Math.round(Math.max(options.height ?? 170, 24) * 1.5) + 40;
   const glow = Math.round(Math.max(options.spread ?? 8, 8) * 3) + 16;
