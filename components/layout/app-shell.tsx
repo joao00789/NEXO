@@ -131,7 +131,7 @@ export function AppShell({
               </div>
             </header>
 
-            <main className="nexo-themed-content w-full flex-1 px-4 py-6 sm:px-6 lg:px-8">
+            <main className="nexo-themed-content w-full flex-1 overflow-x-clip px-4 py-6 sm:px-6 lg:px-8">
               <div className="mx-auto max-w-[1600px]">{children}</div>
             </main>
           </div>
